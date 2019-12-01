@@ -1,11 +1,11 @@
-package com.hillel.bankserviceboot.controller;
+package com.hillel.bugtracker.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/")
 public class MainPageController {
 
     @GetMapping

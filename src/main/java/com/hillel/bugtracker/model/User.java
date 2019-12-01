@@ -1,13 +1,20 @@
 package com.hillel.bugtracker.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
-    private int id;
+    private int userId;
 
     @NotBlank
     private String firstName;
@@ -17,5 +24,11 @@ public class User {
 
     @Email
     private String email;
+
+    private List<Ticket> ticketList;
+
+    public void addTicket (Ticket ticket) {
+        ticketList.add(ticket);
+    }
 
 }

@@ -1,4 +1,36 @@
 package com.hillel.bugtracker.service;
 
-public class TicketServiceImpl {
+import com.hillel.bugtracker.model.Ticket;
+import com.hillel.bugtracker.repository.TicketRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class TicketServiceImpl implements TicketService {
+    private TicketRepository ticketRepository;
+    @Override
+    public void addTicket(Ticket ticket) {
+        ticketRepository.save(ticket);
+    }
+
+    @Override
+    public List<Ticket> getTickets() {
+        return ticketRepository.getTicketList();
+    }
+
+    @Override
+    public Ticket getTicket(int id) {
+        return ticketRepository.getTicketById(id);
+    }
+
+    @Override
+    public void updateTicket(Ticket ticket) {
+        ticketRepository.update(ticket);
+    }
+
+    @Override
+    public void deleteTicket(int id) {
+        ticketRepository.delete(id);
+    }
 }

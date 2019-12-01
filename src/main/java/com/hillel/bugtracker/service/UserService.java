@@ -1,19 +1,19 @@
-package com.hillel.bankserviceboot.service;
+package com.hillel.bugtracker.service;
 
 
-import com.hillel.bankserviceboot.model.UserEntity;
+import com.hillel.bugtracker.model.User;
 
 import java.util.List;
 
 public interface UserService {
 
-    void addUser(UserEntity userEntity);
+    void addUser(User user);
 
-    List<UserEntity> getUsers();
+    List<User> getUsers();
 
-    UserEntity getUser(int id);
+    User getUser(int id);
 
-    void updateUser(UserEntity userEntity);
+    void updateUser(User user);
 
     void deleteUser(int id);
 }
