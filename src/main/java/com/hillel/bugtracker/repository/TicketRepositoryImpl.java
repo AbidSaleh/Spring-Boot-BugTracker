@@ -1,5 +1,6 @@
 package com.hillel.bugtracker.repository;
 
+import com.hillel.bugtracker.model.Message;
 import com.hillel.bugtracker.model.Ticket;
 import org.springframework.stereotype.Repository;
 
@@ -11,8 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class TicketRepositoryImpl implements TicketRepository {
 
-    private int currentTicketId;
+    private int currentTicketId=1;
+    private int currentMessageId=1;
     private Map<Integer,Ticket> ticketMap = new ConcurrentHashMap();
+
 
     @Override
     public List<Ticket> getTicketList() {
@@ -41,5 +44,16 @@ public class TicketRepositoryImpl implements TicketRepository {
     @Override
     public void delete(int id) {
         ticketMap.remove(id);
+    }
+
+    @Override
+    public void saveMessage(Ticket ticket, Message message) {
+        if (ticketMap.get(ticket.getTicketId()).getMessages().get(message.getMessageId()) == null) {
+            message.setMessageId(currentMessageId);
+            currentMessageId++;
+        }
+
+        ticket.getMessages().put(message.getMessageId(), message);
+        ticketMap.put(ticket.getTicketId(), ticket);
     }
 }

@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-   <title>Users list</title>
+   <title>Tickets list</title>
 </head>
 <body>
 <style>
@@ -31,21 +31,20 @@
 </style>
  <div class="table">
      <div class="tr">
-         <span class="th">Id</span>
-         <span class="th">Name</span>
-         <span class="th">Creator Name</span>
-         <span class="th">Holder Name</span>
+         <span class="th">Ticket Id</span>
+         <span class="th">Ticket name</span>
+         <span class="th">Ticket creator Id</span>
+         <span class="th">Ticket holder Id</span>
      </div>
  <c:forEach items="${tickets}" var="ticket">
-     <form:form class="tr" modelAttribute="userAttribute" action="" method="post">
-         <span class="td"><c:out value="${ticket.id}"/></span>
+     <form:form class="tr" modelAttribute="ticketAttribute" action="" method="post">
+         <span class="td"><c:out value="${ticket.ticketId}"/></span>
          <span class="td"><c:out value="${ticket.name}"/></span>
-         <span class="td"><c:out value="${ticket.holder.firstName}"/></span>
-         <span class="td"><c:out value="${ticket.holder.lastName}"/></span>
+         <span class="td"><c:out value="${ticket.creatorId}"/></span>
+         <span class="td"><c:out value="${ticket.holderId}"/></span>
      </form:form>
  </c:forEach>
  </div>
- <input type="button" onclick="location.href='add';" value="Add new user"/>
- <p>Go to <a href="<c:url value="/accounts/list" />">Accounts list</a></p>
+ <input type="button" onclick="location.href='add?userId=${param.userId}';" value="Add new ticket"/>
 </body>
 </html>

@@ -2,7 +2,6 @@ package com.hillel.bugtracker.service;
 
 import com.hillel.bugtracker.model.User;
 import com.hillel.bugtracker.repository.UserRepository;
-import com.hillel.bugtracker.repository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

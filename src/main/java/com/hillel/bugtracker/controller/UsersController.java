@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,14 +63,5 @@ public class UsersController {
     public String deleteUser(@RequestParam("userId") int userId) {
         userService.deleteUser(userId);
         return "redirect:/users/list";
-    }
-
-
-    @RequestMapping(method = RequestMethod.GET, value = "/addTicket")
-    public String addTicketForm(Model model, @RequestParam("userId") int userId) {
-        Ticket ticket = new Ticket();
-        ticket.setCreatorId(userId);
-        userService.getUser(userId).getTicketList().add(ticket);
-        return "redirect:/accounts/list";
     }
 }

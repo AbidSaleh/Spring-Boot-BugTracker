@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -24,11 +23,5 @@ public class User {
 
     @Email
     private String email;
-
-    private List<Ticket> ticketList;
-
-    public void addTicket (Ticket ticket) {
-        ticketList.add(ticket);
-    }
 
 }
