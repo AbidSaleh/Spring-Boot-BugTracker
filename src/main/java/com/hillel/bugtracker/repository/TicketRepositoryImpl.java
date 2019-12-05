@@ -5,6 +5,7 @@ import com.hillel.bugtracker.model.Ticket;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -47,13 +48,20 @@ public class TicketRepositoryImpl implements TicketRepository {
     }
 
     @Override
-    public void saveMessage(Ticket ticket, Message message) {
-        if (ticketMap.get(ticket.getTicketId()).getMessages().get(message.getMessageId()) == null) {
+    public void saveMessage(int ticketId, Message message) {
+        Ticket ticket = ticketMap.get(ticketId);
+        if(ticket.getMessages()==null)
+        {
+            ticket.setMessages(new HashMap<>());
+        }
+        Map<Integer, Message> messages = ticket.getMessages();
+
+        if (messages.get(message.getMessageId()) == null) {
             message.setMessageId(currentMessageId);
             currentMessageId++;
         }
 
-        ticket.getMessages().put(message.getMessageId(), message);
-        ticketMap.put(ticket.getTicketId(), ticket);
+        messages.put(message.getMessageId(), message);
+        ticketMap.put(ticketId, ticket);
     }
 }

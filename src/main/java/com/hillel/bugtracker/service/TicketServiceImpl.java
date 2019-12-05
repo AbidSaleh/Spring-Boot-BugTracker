@@ -40,12 +40,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void addMessage(Ticket ticket, Message message) {
-        ticketRepository.saveMessage(ticket,message);
+    public void addMessage(int ticketId, Message message) {
+        ticketRepository.saveMessage(ticketId,message);
     }
 
     @Override
-    public void updateMessage(Ticket ticket, Message message) {
-        ticketRepository.saveMessage(ticket,message);
+    public void updateMessage(int ticketId, Message message) {
+        ticketRepository.saveMessage(ticketId,message);
     }
 }

@@ -11,5 +11,5 @@ public interface TicketRepository {
     void save(Ticket ticket);
     void update(Ticket ticket);
     void delete(int id);
-    void saveMessage(Ticket ticket, Message message);
+    void saveMessage(int ticketId, Message message);
 }

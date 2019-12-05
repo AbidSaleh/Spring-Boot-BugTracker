@@ -18,7 +18,7 @@
        </tr>
        <tr>
             <td>
-                <form:input path="creatorId" type="hidden"/>
+                <form:hidden path="creatorId"/>
             </td>
        </tr>
        <tr>

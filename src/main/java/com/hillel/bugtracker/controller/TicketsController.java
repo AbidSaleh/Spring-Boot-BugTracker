@@ -11,7 +11,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
@@ -47,26 +49,24 @@ public class TicketsController {
     @RequestMapping(method = RequestMethod.POST, value = "/addTicket")
     public String addTicket(@ModelAttribute("ticketAttribute") @Validated Ticket ticket){
         ticketService.addTicket(ticket);
-        //return "redirect:/tickets/list?userId="+ticket.getCreatorId();
-        return "redirect:/tickets/addMessageForm";
+        return "redirect:/tickets/addMessageForm"+"?ticketId="+ticket.getTicketId()+"&authorId="+ticket.getCreatorId()+"&recipientId="+ticket.getHolderId();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/addMessageForm")
-    public String addMessageForm(Model model){
+    public String addMessageForm(Model model, @RequestParam("authorId") int authorId, @RequestParam("recipientId") int recipientId  ){
         model.addAttribute("messageAttribute", new Message());
         return "messageAdd";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/addMessage")
-    public String addMessage(@ModelAttribute("ticketAttribute") @Validated Ticket ticket,
-                             @ModelAttribute("messageAttribute") @Validated Message message){
-        ticketService.addMessage(ticket, message);
-        return "redirect:/users/list";
+    public String addMessage(@ModelAttribute("messageAttribute") @Validated Message message){
+        ticketService.addMessage(message.getTicketId(), message);
+        return "redirect:/tickets/"+message.getTicketId();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{ticketId}")
-    public ModelAndView showTicket(@PathVariable("ticketId") int ticketId){
-        Ticket ticket = ticketService.getTicket(ticketId);
+    @RequestMapping(method = RequestMethod.GET, value = "/tickets/{ticketId}")
+    public ModelAndView showTicket(@PathVariable String ticketId){
+        Ticket ticket = ticketService.getTicket(Integer.parseInt(ticketId));
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("ticket", ticket);
         modelAndView.setViewName("ticketView");

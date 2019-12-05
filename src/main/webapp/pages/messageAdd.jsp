@@ -6,20 +6,23 @@
    <title>Add message</title>
 </head>
 <body>
- <form:form modelAttribute="ticketAttribute" action="addMessage" method="post">
-<form:form modelAttribute="messageAttribute" action="" method="post">
+<form:form modelAttribute="messageAttribute" action="addMessage" method="post">
    <table>
-   <tr>
-         <td>
-             <form:input path="${ticketAttribute.creatorId}" type="hidden"/>
-         </td>
-    </tr>
-    <tr>
-         <td>
-             <form:input path="${ticketAttribute.recipientId}" type="hidden"/>
-         </td>
-    </tr>
-
+       <tr>
+            <td>
+                <form:hidden path="ticketId" value="${param.ticketId}"/>
+            </td>
+       </tr>
+       <tr>
+            <td>
+                <form:hidden path="authorId" value="${param.authorId}"/>
+            </td>
+       </tr>
+       <tr>
+            <td>
+                <form:hidden path="recipientId" value="${param.recipientId}"/>
+            </td>
+       </tr>
        <tr>
            <td>
                <form:label path="text">text</form:label>
@@ -31,7 +34,6 @@
    </table>
 
    <input type="submit" value="Save"/>
-</form:form>
 </form:form>
 </body>
 </html>

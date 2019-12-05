@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-   <title>Tickets list</title>
+   <title>Ticket id ${ticket.getTicketId}</title>
 </head>
 <body>
 <style>

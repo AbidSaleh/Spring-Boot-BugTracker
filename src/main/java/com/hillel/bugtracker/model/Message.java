@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Message {
     private int messageId;
+    private int ticketId;
     private int authorId;
     private int recipientId;
     private String text;
