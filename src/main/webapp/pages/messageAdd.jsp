@@ -18,11 +18,25 @@
                 <form:hidden path="authorId" value="${param.authorId}"/>
             </td>
        </tr>
-       <tr>
-            <td>
-                <form:hidden path="recipientId" value="${param.recipientId}"/>
-            </td>
-       </tr>
+       <c:choose>
+            <c:when test="${param.recipientId>0}">
+               <tr>
+                    <td>
+                        <form:hidden path="recipientId" value="${param.recipientId}"/>
+                    </td>
+               </tr>
+            </c:when>
+            <c:otherwise>
+               <tr>
+                   <td>
+                       <form:label path="recipientId">recipientId</form:label>
+                   </td>
+                   <td>
+                       <form:input path="recipientId"/>
+                   </td>
+               </tr>
+            </c:otherwise>
+        </c:choose>
        <tr>
            <td>
                <form:label path="text">text</form:label>

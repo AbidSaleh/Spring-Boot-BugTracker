@@ -53,7 +53,7 @@ public class TicketsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/addMessageForm")
-    public String addMessageForm(Model model, @RequestParam("authorId") int authorId, @RequestParam("recipientId") int recipientId  ){
+    public String addMessageForm(Model model, @RequestParam("authorId") int authorId){
         model.addAttribute("messageAttribute", new Message());
         return "messageAdd";
     }
@@ -61,10 +61,11 @@ public class TicketsController {
     @RequestMapping(method = RequestMethod.POST, value = "/addMessage")
     public String addMessage(@ModelAttribute("messageAttribute") @Validated Message message){
         ticketService.addMessage(message.getTicketId(), message);
+        ticketService.getTicket(message.getTicketId()).setHolderId(message.getRecipientId());
         return "redirect:/tickets/"+message.getTicketId();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/tickets/{ticketId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{ticketId}")
     public ModelAndView showTicket(@PathVariable String ticketId){
         Ticket ticket = ticketService.getTicket(Integer.parseInt(ticketId));
         ModelAndView modelAndView = new ModelAndView();
