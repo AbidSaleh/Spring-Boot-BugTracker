@@ -10,7 +10,7 @@
    <table>
        <tr>
            <td>
-               <form:label path="name">Name</form:label>
+               <form:label path="name">Ticket title</form:label>
            </td>
            <td>
                <form:input path="name"/>
@@ -23,12 +23,13 @@
        </tr>
        <tr>
             <td>
-                <form:label path="holderId">Recipient</form:label>
+                Recipient: <select name="holderId">
+                    <c:forEach items="${users}" var="user">
+                        <option value="${user.userId}">${user.firstName}</option>
+                    </c:forEach>
+                </select>
             </td>
-            <td>
-                <form:input path="holderId"/>
-            </td>
-        </tr>
+       </tr>
    </table>
    <input type="submit" value="Save"/>
 </form:form>

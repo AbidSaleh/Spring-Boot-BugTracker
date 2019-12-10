@@ -9,7 +9,7 @@
 <style>
    DIV.table
    {
-       display:table; width: 100%;;
+       display:table; width: 70%;;
    }
    FORM.tr, DIV.tr
    {
@@ -40,6 +40,7 @@
                 <span class="th">Recipient Id</span>
                 <span class="th">Text</span>
             </div>
+
         <c:forEach items="${ticket.getMessages()}" var="message">
             <form:form class="tr" modelAttribute="messageAttribute" action="" method="post">
                 <span class="td"><c:out value="${message.value.messageId}"/></span>
@@ -52,7 +53,7 @@
                 </span>
             </form:form>
         </c:forEach>
-        </div>
+
 
 </body>
 </html>

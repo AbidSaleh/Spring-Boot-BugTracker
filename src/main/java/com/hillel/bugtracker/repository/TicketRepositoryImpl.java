@@ -13,9 +13,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Repository
 public class TicketRepositoryImpl implements TicketRepository {
 
-    private int currentTicketId=1;
-    private int currentMessageId=1;
-    private Map<Integer,Ticket> ticketMap = new ConcurrentHashMap();
+    private int currentTicketId = 1;
+    private int currentMessageId = 1;
+    private Map<Integer, Ticket> ticketMap = new ConcurrentHashMap();
 
 
     @Override
@@ -50,8 +50,7 @@ public class TicketRepositoryImpl implements TicketRepository {
     @Override
     public void saveMessage(int ticketId, Message message) {
         Ticket ticket = ticketMap.get(ticketId);
-        if(ticket.getMessages()==null)
-        {
+        if (ticket.getMessages() == null) {
             ticket.setMessages(new HashMap<>());
         }
         Map<Integer, Message> messages = ticket.getMessages();

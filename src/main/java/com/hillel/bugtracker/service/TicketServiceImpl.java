@@ -41,11 +41,11 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void addMessage(int ticketId, Message message) {
-        ticketRepository.saveMessage(ticketId,message);
+        ticketRepository.saveMessage(ticketId, message);
     }
 
     @Override
     public void updateMessage(int ticketId, Message message) {
-        ticketRepository.saveMessage(ticketId,message);
+        ticketRepository.saveMessage(ticketId, message);
     }
 }

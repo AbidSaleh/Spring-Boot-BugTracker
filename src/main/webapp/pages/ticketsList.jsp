@@ -9,7 +9,7 @@
 <style>
    DIV.table
    {
-       display:table; width: 100%;;
+       display:table; width: 70%;;
    }
    FORM.tr, DIV.tr
    {

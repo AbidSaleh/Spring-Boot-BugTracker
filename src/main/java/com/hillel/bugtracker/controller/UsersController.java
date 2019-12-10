@@ -1,6 +1,5 @@
 package com.hillel.bugtracker.controller;
 
-import com.hillel.bugtracker.model.Ticket;
 import com.hillel.bugtracker.model.User;
 import com.hillel.bugtracker.service.TicketService;
 import com.hillel.bugtracker.service.UserService;
@@ -54,8 +53,8 @@ public class UsersController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/editUser")
-    public String updateUser(@ModelAttribute("userAttribute") @Validated User userEntity) {
-        userService.addUser(userEntity);
+    public String updateUser(@ModelAttribute("userAttribute") @Validated User user) {
+        userService.addUser(user);
         return "redirect:/users/list";
     }
 

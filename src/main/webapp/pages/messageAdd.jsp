@@ -27,19 +27,20 @@
                </tr>
             </c:when>
             <c:otherwise>
-               <tr>
-                   <td>
-                       <form:label path="recipientId">recipientId</form:label>
-                   </td>
-                   <td>
-                       <form:input path="recipientId"/>
-                   </td>
-               </tr>
+                <tr>
+                     <td>
+                         Recipient: <select name="recipientId">
+                             <c:forEach items="${users}" var="user">
+                                 <option value="${user.userId}">${user.firstName}</option>
+                             </c:forEach>
+                         </select>
+                     </td>
+                </tr>
             </c:otherwise>
         </c:choose>
        <tr>
            <td>
-               <form:label path="text">text</form:label>
+               <form:label path="text">Message text</form:label>
            </td>
            <td>
                <form:input path="text"/>

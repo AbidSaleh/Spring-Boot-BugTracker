@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
     private int currentUserId = 1;
     private Map<Integer, User> userMap = new ConcurrentHashMap<>();
 
@@ -25,8 +25,7 @@ public class UserRepositoryImpl implements UserRepository{
 
     @Override
     public void save(User user) {
-        if (userMap.get(user.getUserId())==null)
-        {
+        if (userMap.get(user.getUserId()) == null) {
             user.setUserId(currentUserId);
             currentUserId++;
         }
