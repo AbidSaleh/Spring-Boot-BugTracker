@@ -4,6 +4,7 @@
 <html>
 <head>
    <title>Add message</title>
+   <link rel="stylesheet" type="text/css" href="/style.css"/>
 </head>
 <body>
 <form:form modelAttribute="messageAttribute" action="addMessage" method="post">
@@ -31,7 +32,7 @@
                      <td>
                          Recipient: <select name="recipientId">
                              <c:forEach items="${users}" var="user">
-                                 <option value="${user.userId}">${user.firstName}</option>
+                                 <option value="${user.userId}">${user.firstName}  ${user.lastName}</option>
                              </c:forEach>
                          </select>
                      </td>
@@ -41,8 +42,6 @@
        <tr>
            <td>
                <form:label path="text">Message text</form:label>
-           </td>
-           <td>
                <form:input path="text"/>
            </td>
        </tr>

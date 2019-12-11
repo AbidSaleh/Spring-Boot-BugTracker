@@ -4,31 +4,10 @@
 <html>
 <head>
    <title>Ticket id <c:out value="${ticket.ticketId}"/></title>
+   <link rel="stylesheet" type="text/css" href="/style.css"/>
 </head>
 <body>
-<style>
-   DIV.table
-   {
-       display:table; width: 70%;;
-   }
-   FORM.tr, DIV.tr
-   {
-       display:table-row;
-       padding: 10px;
-       margin: 10px;
-   }
-   SPAN.td
-   {
-       display:table-cell;
-       padding: 10px;
-       margin: 10px;
-   }
-   SPAN.th
-   {
-       display:table-cell;
-       font-weight: bold;
-   }
-</style>
+
 <h3>Ticket id: <c:out value="${ticket.ticketId}"/></h3>
 <h3>Ticket name: <c:out value="${ticket.name}"/></h3>
 <h3>Ticket author: <c:out value="${ticket.creatorId}"/></h3>

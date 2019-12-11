@@ -3,8 +3,9 @@
 <html>
    <head>
        <title>Simple bug tracker</title>
+          <link rel="stylesheet" type="text/css" href="/style.css"/>
    </head>
    <body>
-   <p>Go to <a href="<c:url value="/users/list" />">Users list</a></p>
+   <h1>Go to <a href="<c:url value="/users/list" />">Users list</a></h1>
    </body>
 </html>

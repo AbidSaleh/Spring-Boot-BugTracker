@@ -4,6 +4,7 @@
 <html>
 <head>
    <title>Add ticket</title>
+   <link rel="stylesheet" type="text/css" href="/style.css"/>
 </head>
 <body>
 <form:form modelAttribute="ticketAttribute" action="addTicket" method="post">
@@ -11,8 +12,6 @@
        <tr>
            <td>
                <form:label path="name">Ticket title</form:label>
-           </td>
-           <td>
                <form:input path="name"/>
            </td>
        </tr>
@@ -23,9 +22,9 @@
        </tr>
        <tr>
             <td>
-                Recipient: <select name="holderId">
+                Recipient <select name="holderId">
                     <c:forEach items="${users}" var="user">
-                        <option value="${user.userId}">${user.firstName}</option>
+                        <option value="${user.userId}">${user.firstName} ${user.lastName}</option>
                     </c:forEach>
                 </select>
             </td>

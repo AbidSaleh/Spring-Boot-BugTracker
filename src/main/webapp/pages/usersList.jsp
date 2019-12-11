@@ -4,31 +4,10 @@
 <html>
 <head>
    <title>Users list</title>
+   <link rel="stylesheet" type="text/css" href="/style.css"/>
 </head>
 <body>
-<style>
-   DIV.table
-   {
-       display:table; width: 100%;;
-   }
-   FORM.tr, DIV.tr
-   {
-       display:table-row;
-       padding: 10px;
-       margin: 10px;
-   }
-   SPAN.td
-   {
-       display:table-cell;
-       padding: 10px;
-       margin: 10px;
-   }
-   SPAN.th
-   {
-       display:table-cell;
-       font-weight: bold;
-   }
-</style>
+<h1>Users list</h1>
  <div class="table">
      <div class="tr">
          <span class="th">Id</span>

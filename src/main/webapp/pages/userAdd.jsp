@@ -4,8 +4,10 @@
 <html>
 <head>
    <title>Add user</title>
+   <link rel="stylesheet" type="text/css" href="/style.css"/>
 </head>
 <body>
+<h3>Add user</h3>
 <form:form modelAttribute="userAttribute" action="addUser" method="post">
    <table>
        <tr>
