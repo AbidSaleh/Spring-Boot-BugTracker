@@ -47,5 +47,7 @@
  </c:forEach>
  </div>
  <input type="button" onclick="location.href='add?userId=${param.userId}';" value="Add new ticket"/>
+
+ <div>Go to <a href="<c:url value="/users/list" />">Users list</a></div>
 </body>
 </html>

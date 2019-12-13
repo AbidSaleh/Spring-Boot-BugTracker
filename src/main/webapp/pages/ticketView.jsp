@@ -26,9 +26,14 @@
                 <span class="td"><c:out value="${message.value.authorId}"/></span>
                 <span class="td"><c:out value="${message.value.recipientId}"/></span>
                 <span class="td"><c:out value="${message.value.text}"/></span>
+                <span class="td">
+                    <input type="button" onclick="location.href='/tickets/editMessageForm?ticketId=${message.value.ticketId}&messageId=${message.value.messageId}'"
+                    value="Edit message"/>
+                </span>
             </form:form>
         </c:forEach>
-        <input type="button" onclick="location.href='/tickets/addMessageForm?ticketId=${ticket.ticketId}&authorId=${ticket.creatorId}&recipientId=-1'"
-        value="Add message"/>
+  </div>
+
+  <div>Go to <a href="<c:url value="/tickets/list" />">Tickets list</a>
 </body>
 </html>

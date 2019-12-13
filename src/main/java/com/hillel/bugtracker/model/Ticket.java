@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Data
@@ -16,5 +17,7 @@ public class Ticket {
     private Map<Integer, Message> messages;
     private int creatorId;
     private int holderId;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
 
 }

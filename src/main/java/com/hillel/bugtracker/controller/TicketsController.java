@@ -55,6 +55,16 @@ public class TicketsController {
         return "redirect:/tickets/addMessageForm" + "?ticketId=" + ticket.getTicketId() + "&authorId=" + ticket.getCreatorId() + "&recipientId=" + ticket.getHolderId();
     }
 
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{ticketId}")
+    public ModelAndView showTicket(@PathVariable String ticketId) {
+        Ticket ticket = ticketService.getTicket(Integer.parseInt(ticketId));
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("ticket", ticket);
+        modelAndView.setViewName("ticketView");
+        return modelAndView;
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/addMessageForm")
     public String addMessageForm(Model model, @RequestParam("authorId") int authorId) {
         model.addAttribute("messageAttribute", new Message());
@@ -70,13 +80,18 @@ public class TicketsController {
         return "redirect:/tickets/" + message.getTicketId();
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/{ticketId}")
-    public ModelAndView showTicket(@PathVariable String ticketId) {
-        Ticket ticket = ticketService.getTicket(Integer.parseInt(ticketId));
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("ticket", ticket);
-        modelAndView.setViewName("ticketView");
-        return modelAndView;
+    @RequestMapping(method = RequestMethod.GET, value = "/editMessageForm")
+    public String editMessageForm(Model model, @RequestParam("ticketId") int ticketId, @RequestParam("messageId") int messageId) {
+        Message message = ticketService.getTicket(ticketId).getMessages().get(messageId);
+        model.addAttribute("messageAttribute", message);
+        return "messageEdit";
     }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/editMessage")
+    public String editMessage(@ModelAttribute("messageAttribute") @Validated Message message) {
+        ticketService.updateMessage(message.getTicketId(), message);
+        return "redirect:/tickets/" + message.getTicketId();
+    }
+
 
 }
