@@ -33,16 +33,16 @@
  <div class="table">
      <div class="tr">
          <span class="th">Ticket Id</span>
-         <span class="th">Ticket name</span>
-         <span class="th">Ticket creator Id</span>
-         <span class="th">Ticket holder Id</span>
+         <span class="th">Ticket title</span>
+         <span class="th">Ticket creator</span>
+         <span class="th">Ticket holder</span>
      </div>
  <c:forEach items="${tickets}" var="ticket">
      <form:form class="tr" modelAttribute="ticketAttribute" action="" method="post">
          <span class="td"><c:out value="${ticket.ticketId}"/></span>
-         <span class="td"><c:out value="${ticket.name}"/></span>
-         <span class="td"><c:out value="${ticket.creatorId}"/></span>
-         <span class="td"><c:out value="${ticket.holderId}"/></span>
+         <span class="td"><c:out value="${ticket.title}"/></span>
+         <span class="td"><c:out value="${ticket.creator.firstName} ${ticket.creator.lastName}"/></span>
+         <span class="td"><c:out value="${ticket.holder.firstName} ${ticket.holder.lastName}"/></span>
      </form:form>
  </c:forEach>
  </div>

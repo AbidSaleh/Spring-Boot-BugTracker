@@ -12,9 +12,7 @@ public interface TicketRepository {
 
     void save(Ticket ticket);
 
-    void update(Ticket ticket);
-
     void delete(int id);
 
-    void saveMessage(int ticketId, Message message);
+    void saveMessage(Message message);
 }

@@ -5,8 +5,10 @@ import com.hillel.bugtracker.model.Ticket;
 import com.hillel.bugtracker.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -19,11 +21,13 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.save(ticket);
     }
 
+    @Transactional
     @Override
     public List<Ticket> getTickets() {
         return ticketRepository.getTicketList();
     }
 
+    @Transactional
     @Override
     public Ticket getTicket(int id) {
         return ticketRepository.getTicketById(id);
@@ -31,7 +35,7 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void updateTicket(Ticket ticket) {
-        ticketRepository.update(ticket);
+        ticketRepository.save(ticket);
     }
 
     @Override
@@ -40,12 +44,12 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public void addMessage(int ticketId, Message message) {
-        ticketRepository.saveMessage(ticketId, message);
+    public void addMessage(Message message) {
+        ticketRepository.saveMessage(message);
     }
 
     @Override
-    public void updateMessage(int ticketId, Message message) {
-        ticketRepository.saveMessage(ticketId, message);
+    public void updateMessage(Message message) {
+        ticketRepository.saveMessage(message);
     }
 }

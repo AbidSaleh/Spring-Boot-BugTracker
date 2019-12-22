@@ -17,9 +17,9 @@ public interface TicketService {
 
     void deleteTicket(int id);
 
-    void addMessage(int ticketId, Message message);
+    void addMessage(Message message);
 
-    void updateMessage(int ticketId, Message message);
+    void updateMessage(Message message);
 
 
 }

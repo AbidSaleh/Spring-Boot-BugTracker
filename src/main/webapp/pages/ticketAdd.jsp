@@ -11,8 +11,8 @@
    <table>
        <tr>
            <td>
-               <form:label path="name">Ticket title</form:label>
-               <form:input path="name"/>
+               <form:label path="title">Ticket title</form:label>
+               <form:input path="title"/>
            </td>
        </tr>
        <tr>

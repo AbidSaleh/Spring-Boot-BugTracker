@@ -2,65 +2,52 @@ package com.hillel.bugtracker.repository;
 
 import com.hillel.bugtracker.model.Message;
 import com.hillel.bugtracker.model.Ticket;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
+@Transactional
 @Repository
 public class TicketRepositoryImpl implements TicketRepository {
 
-    private int currentTicketId = 1;
-    private int currentMessageId = 1;
-    private Map<Integer, Ticket> ticketMap = new ConcurrentHashMap();
+    @Autowired
+    private SessionFactory sessionFactory;
 
+    private Session getCurrentSession() {
+        return sessionFactory.getCurrentSession();
+    }
 
     @Override
     public List<Ticket> getTicketList() {
-        return new ArrayList<>(ticketMap.values());
+        return getCurrentSession().createQuery("from Ticket", Ticket.class).list();
     }
 
     @Override
     public Ticket getTicketById(int id) {
-        return ticketMap.get(id);
+        return getCurrentSession().get(Ticket.class, id);
     }
 
     @Override
     public void save(Ticket ticket) {
-        if (ticketMap.get(ticket.getTicketId()) == null) {
-            ticket.setTicketId(currentTicketId);
-            currentTicketId++;
-        }
-        ticketMap.put(ticket.getTicketId(), ticket);
-    }
-
-    @Override
-    public void update(Ticket ticket) {
-        ticketMap.put(ticket.getTicketId(), ticket);
+        getCurrentSession().saveOrUpdate(ticket);
     }
 
     @Override
     public void delete(int id) {
-        ticketMap.remove(id);
+        Ticket ticket = getTicketById(id);
+        getCurrentSession().delete(ticket);
     }
 
     @Override
-    public void saveMessage(int ticketId, Message message) {
-        Ticket ticket = ticketMap.get(ticketId);
-        if (ticket.getMessages() == null) {
-            ticket.setMessages(new HashMap<>());
+    public void saveMessage(Message message) {
+        if (getTicketById(message.getTicketId()).getMessages() == null) {
+            getTicketById(message.getTicketId()).setMessages(new HashMap<>());
         }
-        Map<Integer, Message> messages = ticket.getMessages();
-
-        if (messages.get(message.getMessageId()) == null) {
-            message.setMessageId(currentMessageId);
-            currentMessageId++;
-        }
-
-        messages.put(message.getMessageId(), message);
-        ticketMap.put(ticketId, ticket);
+        getCurrentSession().saveOrUpdate(message);
     }
 }
