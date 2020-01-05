@@ -9,7 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "tickets")
@@ -26,10 +26,11 @@ public class Ticket {
     @EqualsAndHashCode.Exclude
     private String title;
 
-    @OneToMany(mappedBy = "ticket", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ticket", cascade = {
+            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private Set<Message> messages;
+    private List<Message> messages;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")

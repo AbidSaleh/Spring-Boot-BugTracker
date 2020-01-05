@@ -7,7 +7,6 @@
    <link rel="stylesheet" type="text/css" href="/style.css"/>
 </head>
 <body>
-
 <h3>Ticket id: <c:out value="${ticket.ticketId}"/></h3>
 <h3>Ticket name: <c:out value="${ticket.title}"/></h3>
 <h3>Ticket author: <c:out value="${ticket.creator.firstName} ${ticket.creator.lastName}"/></h3>

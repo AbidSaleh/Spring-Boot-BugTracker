@@ -43,6 +43,9 @@
          <span class="td"><c:out value="${ticket.title}"/></span>
          <span class="td"><c:out value="${ticket.creator.firstName} ${ticket.creator.lastName}"/></span>
          <span class="td"><c:out value="${ticket.holder.firstName} ${ticket.holder.lastName}"/></span>
+         <span class="td">
+         <input type="button" onclick="location.href='${ticket.ticketId}';" value="View ticket"/>
+         </span>
      </form:form>
  </c:forEach>
  </div>

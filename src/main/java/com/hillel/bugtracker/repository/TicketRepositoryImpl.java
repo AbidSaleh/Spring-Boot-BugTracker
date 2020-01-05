@@ -4,12 +4,13 @@ import com.hillel.bugtracker.model.Message;
 import com.hillel.bugtracker.model.Ticket;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 
 @Transactional
 @Repository
@@ -29,7 +30,14 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Override
     public Ticket getTicketById(int id) {
-        return getCurrentSession().get(Ticket.class, id);
+        Query<Ticket> query = sessionFactory.getCurrentSession().createQuery(
+                "select t from Ticket t " +
+                        "JOIN FETCH t.messages " +
+                        "where t.ticketId = :id",
+                Ticket.class);
+        query.setParameter("id", id);
+        Ticket ticket = query.getSingleResult();
+        return ticket;
     }
 
     @Override
@@ -46,7 +54,7 @@ public class TicketRepositoryImpl implements TicketRepository {
     @Override
     public void saveMessage(Message message) {
         if (getTicketById(message.getTicket().getTicketId()).getMessages() == null) {
-            getTicketById(message.getTicket().getTicketId()).setMessages(new TreeSet<>());
+            getTicketById(message.getTicket().getTicketId()).setMessages(new ArrayList<>());
         }
         if (getCurrentSession().get(Message.class, message.getMessageId()) != null) {
             getCurrentSession().merge(message);

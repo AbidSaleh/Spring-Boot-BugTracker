@@ -21,7 +21,9 @@ public class Message {
     @Column(name = "message_id")
     private int messageId;
 
-    @ManyToOne
+    @ManyToOne(cascade = {
+            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
+    })
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
