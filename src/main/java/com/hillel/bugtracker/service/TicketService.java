@@ -21,5 +21,6 @@ public interface TicketService {
 
     void updateMessage(Message message);
 
+    void deleteMessage(Message message);
 
 }

@@ -21,8 +21,9 @@ public class Message {
     @Column(name = "message_id")
     private int messageId;
 
-    @Column(name = "ticket_id")
-    private int ticketId;
+    @ManyToOne
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
 
     @ManyToOne
     private User author;
@@ -37,4 +38,5 @@ public class Message {
 
     @UpdateTimestamp
     private LocalDateTime updateDate;
+
 }

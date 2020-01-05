@@ -15,4 +15,8 @@ public interface TicketRepository {
     void delete(int id);
 
     void saveMessage(Message message);
+
+    void updateMessage(Message message);
+
+    void deleteMessage(Message message);
 }

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.TreeSet;
 
 @Transactional
 @Repository
@@ -45,9 +45,23 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Override
     public void saveMessage(Message message) {
-        if (getTicketById(message.getTicketId()).getMessages() == null) {
-            getTicketById(message.getTicketId()).setMessages(new HashMap<>());
+        if (getTicketById(message.getTicket().getTicketId()).getMessages() == null) {
+            getTicketById(message.getTicket().getTicketId()).setMessages(new TreeSet<>());
         }
-        getCurrentSession().saveOrUpdate(message);
+        if (getCurrentSession().get(Message.class, message.getMessageId()) != null) {
+            getCurrentSession().merge(message);
+        } else {
+            getCurrentSession().saveOrUpdate(message);
+        }
+    }
+
+    @Override
+    public void updateMessage(Message message) {
+        getCurrentSession().getTransaction().commit();
+    }
+
+    @Override
+    public void deleteMessage(Message message) {
+        getCurrentSession().delete(message);
     }
 }

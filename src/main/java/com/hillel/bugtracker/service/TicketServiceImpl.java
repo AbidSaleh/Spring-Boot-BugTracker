@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+@Transactional
 @Service
 public class TicketServiceImpl implements TicketService {
 
@@ -21,13 +21,11 @@ public class TicketServiceImpl implements TicketService {
         ticketRepository.save(ticket);
     }
 
-    @Transactional
     @Override
     public List<Ticket> getTickets() {
         return ticketRepository.getTicketList();
     }
 
-    @Transactional
     @Override
     public Ticket getTicket(int id) {
         return ticketRepository.getTicketById(id);
@@ -51,5 +49,10 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void updateMessage(Message message) {
         ticketRepository.saveMessage(message);
+    }
+
+    @Override
+    public void deleteMessage(Message message) {
+        ticketRepository.deleteMessage(message);
     }
 }

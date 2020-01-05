@@ -20,11 +20,9 @@ public class MessageConverter {
 
     @Transactional
     public Message getConvertedMessage(MessageRequest messageRequest) {
-        Message message = ticketService.getTicket(messageRequest.getTicketId()).getMessages().get(messageRequest.getMessageId());
-        if (message == null) {
-            message = new Message();
-        }
-        message.setTicketId(messageRequest.getTicketId());
+        Message message = new Message();
+
+        message.setTicket(ticketService.getTicket(messageRequest.getTicketId()));
         message.setAuthor(userService.getUser(messageRequest.getAuthorId()));
         message.setRecipient(userService.getUser(messageRequest.getRecipientId()));
         message.setText(messageRequest.getText());

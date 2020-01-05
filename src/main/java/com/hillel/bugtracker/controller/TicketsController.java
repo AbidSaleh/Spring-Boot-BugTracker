@@ -76,7 +76,7 @@ public class TicketsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/addMessageForm")
-    public String addMessageForm(Model model, @RequestParam("authorId") int authorId) {
+    public String addMessageForm(Model model) {
         model.addAttribute("messageAttribute", new MessageRequest());
         List<User> users = userService.getUsers();
         model.addAttribute("users", users);
@@ -87,14 +87,20 @@ public class TicketsController {
     public String addMessage(@ModelAttribute("messageAttribute") MessageRequest messageRequest) {
         Message message = messageConverter.getConvertedMessage(messageRequest);
         ticketService.addMessage(message);
-        ticketService.getTicket(message.getTicketId()).setHolder(message.getRecipient());
-        return "redirect:/tickets/" + message.getTicketId();
+        ticketService.getTicket(message.getTicket().getTicketId()).setHolder(message.getRecipient());
+        return "redirect:/tickets/" + message.getTicket().getTicketId();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/editMessageForm")
     public String editMessageForm(Model model, @RequestParam("ticketId") int ticketId, @RequestParam("messageId") int messageId) {
-        Message message = ticketService.getTicket(ticketId).getMessages().get(messageId);
-        MessageRequest messageRequest = new MessageRequest(message.getMessageId(), message.getTicketId(),
+        Message message = null;
+        for (Message message1 : ticketService.getTicket(ticketId).getMessages()) {
+            if (message1.getMessageId() == messageId) {
+                message = message1;
+            }
+        }
+
+        MessageRequest messageRequest = new MessageRequest(message.getMessageId(), message.getTicket().getTicketId(),
                 message.getAuthor().getUserId(), message.getRecipient().getUserId(), message.getText());
         model.addAttribute("messageAttribute", messageRequest);
         return "messageEdit";
@@ -105,7 +111,7 @@ public class TicketsController {
         Message message = messageConverter.getConvertedMessage(messageRequest);
         message.setMessageId(messageRequest.getMessageId());
         ticketService.addMessage(message);
-        return "redirect:/tickets/" + message.getTicketId();
+        return "redirect:/tickets/" + message.getTicket().getTicketId();
     }
 
 

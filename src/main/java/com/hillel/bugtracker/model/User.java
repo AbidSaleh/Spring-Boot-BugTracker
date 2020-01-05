@@ -1,9 +1,6 @@
 package com.hillel.bugtracker.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -23,11 +20,13 @@ public class User {
     @NotBlank
     @Column(name = "first_Name")
     @NonNull
+    @EqualsAndHashCode.Exclude
     private String firstName;
 
     @NotBlank
     @Column(name = "last_Name")
     @NonNull
+    @EqualsAndHashCode.Exclude
     private String lastName;
 
 
@@ -35,6 +34,8 @@ public class User {
     @Column(name = "email")
     @NotBlank
     @NonNull
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private String email;
 
 }

@@ -22,18 +22,18 @@
 
         <c:forEach items="${ticket.getMessages()}" var="message">
             <form:form class="tr" modelAttribute="messageAttribute" action="" method="post">
-                <span class="td"><c:out value="${message.value.messageId}"/></span>
-                <span class="td"><c:out value="${message.value.author.firstName} ${message.value.author.lastName}"/></span>
-                <span class="td"><c:out value="${message.value.recipient.firstName} ${message.value.recipient.lastName}"/></span>
-                <span class="td"><c:out value="${message.value.text}"/></span>
+                <span class="td"><c:out value="${message.messageId}"/></span>
+                <span class="td"><c:out value="${message.author.firstName} ${message.author.lastName}"/></span>
+                <span class="td"><c:out value="${message.recipient.firstName} ${message.recipient.lastName}"/></span>
+                <span class="td"><c:out value="${message.text}"/></span>
                 <span class="td">
-                    <input type="button" onclick="location.href='/tickets/editMessageForm?ticketId=${message.value.ticketId}&messageId=${message.value.messageId}'"
+                    <input type="button" onclick="location.href='/tickets/editMessageForm?ticketId=${message.ticket.ticketId}&messageId=${message.messageId}'"
                     value="Edit message"/>
                 </span>
             </form:form>
         </c:forEach>
-  </div>
-
+        </div>
+        <input type="button" onclick="location.href='addMessageForm?ticketId=${ticket.ticketId}&authorId=${ticket.creator.userId}';" value="Add new message"/>
   <div>Go to <a href="<c:url value="/tickets/list" />">Tickets list</a>
 </body>
 </html>

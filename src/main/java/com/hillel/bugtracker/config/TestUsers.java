@@ -1,6 +1,5 @@
 package com.hillel.bugtracker.config;
 
-import com.hillel.bugtracker.model.User;
 import com.hillel.bugtracker.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ public class TestUsers implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        userRepository.save(new User("Big", "Boss", "BigBoss@email.com"));
-        userRepository.save(new User("Usual", "Employee", "employee@email.com"));
+        //userRepository.save(new User("Big", "Boss", "BigBoss@email.com"));
+        //userRepository.save(new User("Usual", "Employee", "employee@email.com"));
     }
 }

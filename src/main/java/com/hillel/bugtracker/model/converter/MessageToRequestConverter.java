@@ -13,16 +13,14 @@ public class MessageToRequestConverter {
     @Autowired
     private TicketService ticketService;
 
-    public Message getConvertedMessage(Message message) {
+    public MessageRequest getConvertedMessage(Message message) {
         MessageRequest messageRequest = new MessageRequest();
+
         messageRequest.setMessageId(message.getMessageId());
-
-
-        message.setTicketId(messageRequest.getTicketId());
-        message.setAuthor(userService.getUser(messageRequest.getAuthorId()));
-        message.setRecipient(userService.getUser(messageRequest.getRecipientId()));
-        message.setText(messageRequest.getText());
-        ticketService.addMessage(message);
-        return message;
+        messageRequest.setTicketId(message.getTicket().getTicketId());
+        messageRequest.setAuthorId(message.getAuthor().getUserId());
+        messageRequest.setRecipientId(message.getRecipient().getUserId());
+        messageRequest.setText(message.getText());
+        return messageRequest;
     }
 }
