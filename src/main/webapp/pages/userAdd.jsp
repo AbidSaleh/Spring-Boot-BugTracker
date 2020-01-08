@@ -8,32 +8,29 @@
 </head>
 <body>
 <h3>Add user</h3>
+<i cssClass = "info">Fields with (*) is required</i>
+<br>
+<br>
 <form:form modelAttribute="userAttribute" action="addUser" method="post">
    <table>
        <tr>
            <td>
-               <form:label path="firstName">User First Name</form:label>
-           </td>
-           <td>
-               <form:input path="firstName"/>
+               User First Name(*) <form:input path="firstName" />
+               <form:errors path="firstName" cssClass="error"/>
            </td>
        </tr>
        <tr>
            <td>
-               <form:label path="lastName">User Last Name</form:label>
-           </td>
-           <td>
-               <form:input path="lastName"/>
+            User Last Name(*) <form:input path="lastName" />
+            <form:errors path="lastName" cssClass="error"/>
            </td>
        </tr>
        <tr>
-                  <td>
-                      <form:label path="email">User email</form:label>
-                  </td>
-                  <td>
-                      <form:input path="email"/>
-                  </td>
-              </tr>
+           <td>
+            Email(*) <form:input path="email" />
+            <form:errors path="email" cssClass="error"/>
+           </td>
+       </tr>
    </table>
    <input type="submit" value="Save"/>
 </form:form>

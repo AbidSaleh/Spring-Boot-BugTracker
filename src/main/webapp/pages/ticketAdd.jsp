@@ -7,12 +7,15 @@
    <link rel="stylesheet" type="text/css" href="/style.css"/>
 </head>
 <body>
+<i cssClass = "info">Fields with (*) is required</i>
+<br>
+<br>
 <form:form modelAttribute="ticketAttribute" action="addTicket" method="post">
    <table>
        <tr>
            <td>
-               <form:label path="title">Ticket title</form:label>
-               <form:input path="title"/>
+               Ticket title(*) <form:input path="title" />
+               <form:errors path="title" cssClass="error"/>
            </td>
        </tr>
        <tr>
@@ -22,10 +25,11 @@
        </tr>
        <tr>
             <td>
-                Recipient <select name="holderId">
+                Recipient (*)<select name="holderId">
                     <c:forEach items="${users}" var="user">
                         <option value="${user.userId}">${user.firstName} ${user.lastName}</option>
                     </c:forEach>
+                    <form:errors path="holderId" cssClass="error"/>
                 </select>
             </td>
        </tr>

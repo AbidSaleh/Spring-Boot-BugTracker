@@ -7,6 +7,9 @@
    <link rel="stylesheet" type="text/css" href="/style.css"/>
 </head>
 <body>
+<i cssClass = "info">Fields with (*) is required</i>
+<br>
+<br>
 <form:form modelAttribute="messageAttribute" action="addMessage" method="post">
    <table>
        <tr>
@@ -41,8 +44,8 @@
         </c:choose>
        <tr>
            <td>
-               <form:label path="text">Message text</form:label>
-               <form:input path="text"/>
+               Message text(*) <form:input path="text" />
+               <form:errors path="text" cssClass="error"/>
            </td>
        </tr>
    </table>

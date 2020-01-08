@@ -33,16 +33,20 @@
  <div class="table">
      <div class="tr">
          <span class="th">Ticket Id</span>
+         <span class="th">Created</span>
          <span class="th">Ticket title</span>
          <span class="th">Ticket creator</span>
          <span class="th">Ticket holder</span>
+         <span class="th">Updated</span>
      </div>
  <c:forEach items="${tickets}" var="ticket">
      <form:form class="tr" modelAttribute="ticketAttribute" action="" method="post">
          <span class="td"><c:out value="${ticket.ticketId}"/></span>
+         <span class="td"><c:out value="${ticket.createDate}"/></span>
          <span class="td"><c:out value="${ticket.title}"/></span>
          <span class="td"><c:out value="${ticket.creator.firstName} ${ticket.creator.lastName}"/></span>
          <span class="td"><c:out value="${ticket.holder.firstName} ${ticket.holder.lastName}"/></span>
+         <span class="td"><c:out value="${ticket.updateDate}"/></span>
          <span class="td">
          <input type="button" onclick="location.href='${ticket.ticketId}';" value="View ticket"/>
          </span>

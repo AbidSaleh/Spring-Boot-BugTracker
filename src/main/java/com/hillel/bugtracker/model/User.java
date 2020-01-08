@@ -17,22 +17,22 @@ public class User {
     @Column(name = "user_id")
     private int userId;
 
-    @NotBlank
+    @NotBlank(message = "first name is required")
     @Column(name = "first_Name")
     @NonNull
     @EqualsAndHashCode.Exclude
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = "last name is required")
     @Column(name = "last_Name")
     @NonNull
     @EqualsAndHashCode.Exclude
     private String lastName;
 
 
-    @Email
+    @Email(message = "invalid email format")
     @Column(name = "email")
-    @NotBlank
+    @NotBlank(message = "email is required")
     @NonNull
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

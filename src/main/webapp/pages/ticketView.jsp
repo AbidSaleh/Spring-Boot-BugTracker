@@ -14,17 +14,21 @@
  <div class="table">
             <div class="tr">
                 <span class="th">Message Id</span>
+                <span class="th">Created</span>
                 <span class="th">Author</span>
                 <span class="th">Recipient</span>
                 <span class="th">Text</span>
+                <span class="th">Updated</span>
             </div>
 
         <c:forEach items="${ticket.getMessages()}" var="message">
             <form:form class="tr" modelAttribute="messageAttribute" action="" method="post">
                 <span class="td"><c:out value="${message.messageId}"/></span>
+                <span class="td"><c:out value="${message.createDate}"/></span>
                 <span class="td"><c:out value="${message.author.firstName} ${message.author.lastName}"/></span>
                 <span class="td"><c:out value="${message.recipient.firstName} ${message.recipient.lastName}"/></span>
                 <span class="td"><c:out value="${message.text}"/></span>
+                <span class="td"><c:out value="${message.updateDate}"/></span>
                 <span class="td">
                     <input type="button" onclick="location.href='/tickets/editMessageForm?ticketId=${message.ticket.ticketId}&messageId=${message.messageId}'"
                     value="Edit message"/>

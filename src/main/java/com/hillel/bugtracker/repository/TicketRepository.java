@@ -1,6 +1,5 @@
 package com.hillel.bugtracker.repository;
 
-import com.hillel.bugtracker.model.Message;
 import com.hillel.bugtracker.model.Ticket;
 
 import java.util.List;
@@ -13,10 +12,4 @@ public interface TicketRepository {
     void save(Ticket ticket);
 
     void delete(int id);
-
-    void saveMessage(Message message);
-
-    void updateMessage(Message message);
-
-    void deleteMessage(Message message);
 }

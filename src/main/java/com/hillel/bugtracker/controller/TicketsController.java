@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,9 +61,16 @@ public class TicketsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/addTicket")
-    public String addTicket(@ModelAttribute("ticketAttribute") TicketRequest ticketRequest) {
-        Ticket ticket = ticketConverter.getConvertedTicket(ticketRequest);
-        return "redirect:/tickets/addMessageForm" + "?ticketId=" + ticket.getTicketId() + "&authorId=" + ticket.getCreator().getUserId() + "&recipientId=" + ticket.getHolder().getUserId();
+    public String addTicket(Model model, @ModelAttribute("ticketAttribute")
+    @Validated TicketRequest ticketRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<User> users = userService.getUsers();
+            model.addAttribute("users", users);
+            return "ticketAdd";
+        } else {
+            Ticket ticket = ticketConverter.getConvertedTicket(ticketRequest);
+            return "redirect:/tickets/addMessageForm" + "?ticketId=" + ticket.getTicketId() + "&authorId=" + ticket.getCreator().getUserId() + "&recipientId=" + ticket.getHolder().getUserId();
+        }
     }
 
 
@@ -84,11 +92,19 @@ public class TicketsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/addMessage")
-    public String addMessage(@ModelAttribute("messageAttribute") MessageRequest messageRequest) {
-        Message message = messageConverter.getConvertedMessage(messageRequest);
-        ticketService.addMessage(message);
-        ticketService.getTicket(message.getTicket().getTicketId()).setHolder(message.getRecipient());
-        return "redirect:/tickets/" + message.getTicket().getTicketId();
+    public String addMessage(@ModelAttribute("messageAttribute") @Validated MessageRequest messageRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "messageAdd";
+        } else {
+            Message message = messageConverter.getConvertedMessage(messageRequest);
+
+            Ticket ticket = ticketService.getTicket(message.getTicket().getTicketId());
+            ticket.addMessage(message);
+            ticket.setHolder(message.getRecipient());
+
+            ticketService.addMessage(message);
+            return "redirect:/tickets/" + message.getTicket().getTicketId();
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/editMessageForm")
@@ -107,11 +123,15 @@ public class TicketsController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/editMessage")
-    public String editMessage(@ModelAttribute("messageAttribute") @Validated MessageRequest messageRequest) {
-        Message message = messageConverter.getConvertedMessage(messageRequest);
-        message.setMessageId(messageRequest.getMessageId());
-        ticketService.addMessage(message);
-        return "redirect:/tickets/" + message.getTicket().getTicketId();
+    public String editMessage(@ModelAttribute("messageAttribute") @Validated MessageRequest messageRequest, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/tickets/editMessageForm?ticketId=" + messageRequest.getTicketId() + "&messageId=" + messageRequest.getMessageId();
+        } else {
+            Message message = messageConverter.getConvertedMessage(messageRequest);
+            message.setMessageId(messageRequest.getMessageId());
+            ticketService.addMessage(message);
+            return "redirect:/tickets/" + message.getTicket().getTicketId();
+        }
     }
 
 

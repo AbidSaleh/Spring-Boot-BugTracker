@@ -6,6 +6,7 @@ import com.hillel.bugtracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +33,13 @@ public class UsersController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/addUser")
-    public String addUser(@ModelAttribute("userAttribute") @Validated User userEntity) {
-        userService.addUser(userEntity);
-        return "redirect:/users/list";
+    public String addUser(@ModelAttribute("userAttribute") @Validated User userEntity, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "userAdd";
+        } else {
+            userService.addUser(userEntity);
+            return "redirect:/users/list";
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")

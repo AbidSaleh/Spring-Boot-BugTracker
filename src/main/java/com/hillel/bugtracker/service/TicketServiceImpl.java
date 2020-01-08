@@ -2,6 +2,7 @@ package com.hillel.bugtracker.service;
 
 import com.hillel.bugtracker.model.Message;
 import com.hillel.bugtracker.model.Ticket;
+import com.hillel.bugtracker.repository.MessageRepository;
 import com.hillel.bugtracker.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     private TicketRepository ticketRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
 
     @Override
     public void addTicket(Ticket ticket) {
@@ -43,16 +47,16 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void addMessage(Message message) {
-        ticketRepository.saveMessage(message);
+        messageRepository.saveMessage(message);
     }
 
     @Override
     public void updateMessage(Message message) {
-        ticketRepository.saveMessage(message);
+        messageRepository.saveMessage(message);
     }
 
     @Override
-    public void deleteMessage(Message message) {
-        ticketRepository.deleteMessage(message);
+    public void deleteMessage(int id) {
+        messageRepository.deleteMessage(id);
     }
 }
