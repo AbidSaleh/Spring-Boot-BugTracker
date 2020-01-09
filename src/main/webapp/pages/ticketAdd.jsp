@@ -4,25 +4,22 @@
 <html>
 <head>
    <title>Add Ticket</title>
-   <link rel="stylesheet" type="text/css" href="/style.css"/>
-   <link rel="stylesheet" type="text/css" href="/add-style.css"/>
+   <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<div id="wrapper">
-		<div id="header">
-			<h2>Add Ticket</h2>
-			<i>Fields with (*) is required</i>
-		</div>
-	</div>
-	<div id="container">
+
+	<div class="container">
+	<h3>Add Ticket</h3>
+    <strong>Fields with (*) is required</strong>
+
 	<form:form action="addTicket" modelAttribute="ticketAttribute" method="POST">
     			<form:hidden path="ticketId" />
-    			<table>
+    			<table class="table table-striped">
     				<tbody>
     					<tr>
     						<td><label>Ticket title (*):</label></td>
     						<td><form:input path="title" /></td>
-    						<form:errors path="title" cssClass="error"/>
+    						<form:errors path="title" cssClass="text-danger"/>
     					</tr>
                         <form:hidden path="creatorId"/>
                         <tr>
@@ -31,26 +28,23 @@
                                     <c:forEach items="${users}" var="user">
                                         <option value="${user.userId}">${user.firstName} ${user.lastName}</option>
                                     </c:forEach>
-                                    <form:errors path="holderId" cssClass="error"/>
+                                    <form:errors path="holderId" cssClass="text-danger"/>
                                 </select>
                             </td>
                         </tr>
-    					<tr>
-    						<td><label></label></td>
-    						<td><input type="submit" value="Save" class="add-button" /></td>
-    					</tr>
-
     				</tbody>
     			</table>
+    			<button type="submit" class="btn btn-success">Save</button>
 
     		</form:form>
 
-    		<div style="clear; both;"></div>
+            <div>
+            <a class="btn btn-secondary" href="<c:url value="/tickets/list" />">Back to Tickets List</a>
+            </div>
 
-    		<p>
-    			<a href="<c:url value="/tickets/list" />">Back to Tickets List</a>
-    		</p>
+    </div>
 
-    	</div>
+	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>

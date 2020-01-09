@@ -4,21 +4,17 @@
 <html>
 <head>
    <title>Add Message</title>
-   <link rel="stylesheet" type="text/css" href="/style.css"/>
-   <link rel="stylesheet" type="text/css" href="/add-style.css"/>
+   <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<div id="wrapper">
-		<div id="header">
-			<h2>Add Message</h2>
-			<i>Fields with (*) is required</i>
-		</div>
-	</div>
-	<div id="container">
-	<form:form action="addMessage" modelAttribute="messageAttribute" method="POST">
+	<div class="container">
+	    <h2>Add Message</h2>
+	    <strong>Fields with (*) is required</strong>
+	    <form:form action="addMessage" modelAttribute="messageAttribute" method="POST">
     			<form:hidden path="ticketId" value="${param.ticketId}"/>
     			<form:hidden path="authorId" value="${param.authorId}"/>
-    			<table>
+
+    			<table class="table table-striped">
     				<tbody>
 
                     <c:choose>
@@ -36,26 +32,32 @@
                                          <c:forEach items="${users}" var="user">
                                              <option value="${user.userId}">${user.firstName}  ${user.lastName}</option>
                                          </c:forEach>
-                                         <form:errors path="recipientId" cssClass="error"/>
+                                         <form:errors path="recipientId" cssClass="text-danger"/>
                                      </select>
                                     </td>
                             </tr>
                         </c:otherwise>
                     </c:choose>
+
     					<tr>
     						<td><label>Message text (*):</label></td>
     						<td><form:input path="text" /></td>
     						<form:errors path="text" cssClass="error"/>
     					</tr>
-    					<tr>
-    						<td><label></label></td>
-    						<td><input type="submit" value="Save" class="add-button" /></td>
-    					</tr>
-
     				</tbody>
     			</table>
 
-    		</form:form>
-    	</div>
+    			<button type="submit" class="btn btn-success">Save</button>
+
+    	</form:form>
+
+         <div>
+            <a class="btn btn-secondary" href="<c:url value="/tickets/list?userId=${param.authorId}" />">Back to Tickets List</a>
+         </div>
+
+    </div>
+
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>

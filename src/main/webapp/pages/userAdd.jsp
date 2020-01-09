@@ -4,57 +4,50 @@
 <html>
 <head>
    <title>Add user</title>
-   <link rel="stylesheet" type="text/css" href="/style.css"/>
-   <link rel="stylesheet" type="text/css" href="/add-style.css"/>
+   <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<div id="wrapper">
-		<div id="header">
-			<h2>Add user</h2>
-			<i>Fields with (*) is required</i>
-		</div>
-	</div>
-	<div id="container">
-	<form:form action="addUser" modelAttribute="userAttribute" method="POST">
+
+	<div class="container">
+
+	    <h2>Add user</h2>
+	    <strong>Fields with (*) is required</strong>
+
+	    <form:form action="addUser" modelAttribute="userAttribute" method="POST">
     			<form:hidden path="userId" />
-    			<table>
+    			<table class="table table-striped">
     				<tbody>
     					<tr>
     						<td><label>First name (*):</label></td>
     						<td><form:input path="firstName" /></td>
-    						<form:errors path="firstName" cssClass="error"/>
+    						<td><form:errors path="firstName" cssClass="text-danger"/></td>
     					</tr>
 
     					<tr>
     						<td><label>Last name (*):</label></td>
     						<td><form:input path="lastName" /></td>
-    						<form:errors path="lastName" cssClass="error"/>
+    						<td><form:errors path="lastName" cssClass="text-danger"/></td>
     					</tr>
 
     					<tr>
     						<td><label>Email (*):</label></td>
     						<td><form:input path="email" /></td>
-    						<form:errors path="email" cssClass="error"/>
+    						<td><form:errors path="email" cssClass="text-danger"/></td>
     					</tr>
-
-    					<tr>
-    						<td><label></label></td>
-    						<td><input type="submit" value="Save" class="add-button" /></td>
-    					</tr>
-
 
     				</tbody>
     			</table>
 
+    			<button type="submit" class="btn btn-success">Save</button>
 
     		</form:form>
 
-    		<div style="clear; both;"></div>
+            <div>
+            <a class="btn btn-secondary" href="<c:url value="/users/list" />">Back to Users List</a>
+            </div>
 
-    		<p>
-    			<a href="<c:url value="/users/list" />">Back to Users List</a>
-    		</p>
-
-    	</div>
+    </div>
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>

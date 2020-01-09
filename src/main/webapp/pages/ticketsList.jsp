@@ -6,26 +6,18 @@
 
 <head>
    <title>Tickets list</title>
-   <link rel="stylesheet" type="text/css" href="/style.css"/>
+   <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="wrapper">
-		<div id="header">
-			<h2>Tickets List</h2>
-		</div>
-	</div>
 
-    <div id="container">
 
-    		<div id="content">
 
-    			<input type="button" value="Add Ticket"
-    				   onclick="location.href='add?userId=${param.userId}';"
-    				   class="add-button"
-    			/>
 
-    			<table>
+    <div class="container">
+    <h3>Tickets List</h3>
+
+    			<table class="table table-striped">
     				<tr>
     				    <th>Id</th>
     					<th>Created</th>
@@ -44,20 +36,25 @@
     						<td> ${ticket.creator.firstName} ${ticket.creator.lastName} </td>
     						<td> ${ticket.holder.firstName} ${ticket.holder.lastName} </td>
     						<td> ${ticket.updateDate} </td>
-                            <td><input type="button" onclick="location.href='${ticket.ticketId}';" value="View ticket" class="get-button"/></td>
-
+                            <td><button type="button" class="btn btn-primary"
+                                 onclick="location.href='${ticket.ticketId}';">View Ticket</button>
+                            </td>
     					</tr>
 
     				</c:forEach>
 
     			</table>
 
-    		</div>
+    			<div>
+                    <button type="button" class="btn btn-success" onclick="location.href='add?userId=${param.userId}';">Add Ticket</button>
+                </div>
+                <br>
+                <div>
+                    <a class="btn btn-secondary" href="<c:url value="/tickets/list?userId=${ticket.creator.userId}" />">Back to Tickets List</a>
+                </div>
+    </div>
 
-    		<p>
-    			<a href="<c:url value="/users/list" />">Back to Users List</a>
-    		</p>
-    	</div>
-
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>

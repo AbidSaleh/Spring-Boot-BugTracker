@@ -6,74 +6,78 @@
 
 <head>
    <title>Ticket id <c:out value="${ticket.ticketId}"/></title>
-   <link rel="stylesheet" type="text/css" href="/view-style.css"/>
+   <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="wrapper">
-		<div id="header">
+
+    <div class ="container">
 		<h3>Ticket info</h3>
-            <table>
+            <table class="table">
+            <thead class="thead-dark">
             	<tr>
-            	    <th class="headerTh">Id</th>
-            		<th class="headerTh">Created</th>
-            		<th class="headerTh">Ticket title</th>
-            		<th class="headerTh">Ticket creator</th>
-            		<th class="headerTh">Ticket holder</th>
-            		<th class="headerTh">Updated</th>
+            	    <th>Id</th>
+            		<th>Created</th>
+            		<th>Ticket title</th>
+            		<th>Ticket creator</th>
+            		<th>Ticket holder</th>
+            		<th>Updated</th>
+            		<th></th>
             	</tr>
                 <tr>
-                    <td> ${ticket.ticketId} </td>
-                    <td> ${ticket.createDate} </td>
-                    <td> ${ticket.title} </td>
-                    <td> ${ticket.creator.firstName} ${ticket.creator.lastName} </td>
-                    <td> ${ticket.holder.firstName} ${ticket.holder.lastName} </td>
-                    <td> ${ticket.updateDate} </td>
+                    <th> ${ticket.ticketId} </th>
+                    <th> ${ticket.createDate} </th>
+                    <th> ${ticket.title} </th>
+                    <th> ${ticket.creator.firstName} ${ticket.creator.lastName} </th>
+                    <th> ${ticket.holder.firstName} ${ticket.holder.lastName} </th>
+                    <th> ${ticket.updateDate} </th>
+                    <th>
+                        <a class="btn btn-secondary" href="<c:url value="/tickets/list?userId=${ticket.creator.userId}" />">Back to Tickets List</a>
+                    </th>
     			</tr>
+            </thead>
             </table>
-		</div>
-	</div>
+        <h3>Messages</h3>
+    	<table class="table table-striped">
 
-    <div id="container">
+    	    <tr>
+    			<th>Id</th>
+    		    <th>Created</th>
+    		    <th>Message author</th>
+    		    <th>Message recipient</th>
+    		    <th>Text</th>
+    		    <th>Updated</th>
+    		    <th>Action</th>
+    	    </tr>
 
-    		<div id="content">
-            <h3>Messages</h3>
-    			<table>
-    				<tr>
-    				    <th>Id</th>
-    					<th>Created</th>
-    					<th>Message author</th>
-    					<th>Message recipient</th>
-    					<th>Text</th>
-    					<th>Updated</th>
-    					<th>Action</th>
-    				</tr>
+    		<c:forEach var="message" items="${ticket.getMessages()}">
+    		<tr>
+    		    <td> ${message.messageId} </td>
+    		    <td> ${message.createDate} </td>
+    		    <td> ${message.author.firstName} ${message.author.lastName} </td>
+    		    <td> ${message.recipient.firstName} ${message.recipient.lastName} </td>
+    		    <td> ${message.text} </td>
+    		    <td> ${message.updateDate} </td>
+                <td><button type="button" class="btn btn-primary"
+                     onclick="location.href='/tickets/editMessageForm?ticketId=${message.ticket.ticketId}&messageId=${message.messageId}'">
+                     Edit message</button>
+                </td>
+    		</tr>
+    		</c:forEach>
 
-    				<c:forEach var="message" items="${ticket.getMessages()}">
-    					<tr>
-    					    <td> ${message.messageId} </td>
-    						<td> ${message.createDate} </td>
-    						<td> ${message.author.firstName} ${message.author.lastName} </td>
-    						<td> ${message.recipient.firstName} ${message.recipient.lastName} </td>
-    						<td> ${message.text} </td>
-    						<td> ${message.updateDate} </td>
-                            <td><input type="button" onclick="location.href='/tickets/editMessageForm?ticketId=${message.ticket.ticketId}&messageId=${message.messageId}'" value="Edit Message Text" class="get-button"/></td>
+    	</table>
 
-    					</tr>
 
-    				</c:forEach>
+    	<div>
+            <button type="button" class="btn btn-success"
+            onclick="location.href='addMessageForm?ticketId=${ticket.ticketId}&authorId=${ticket.creator.userId}';">
+            Add Message</button>
+        </div>
 
-    			</table>
-            <input type="button" value="Add Message"
-                				   onclick="location.href='addMessageForm?ticketId=${ticket.ticketId}&authorId=${ticket.creator.userId}';"
-                				   class="add-button"/>
+    </div>
 
-    		</div>
-
-    		<p>
-    			<a href="<c:url value="/users/tickets" />">Back to Tickets List</a>
-    		</p>
-    	</div>
+    <script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 </body>
 </html>

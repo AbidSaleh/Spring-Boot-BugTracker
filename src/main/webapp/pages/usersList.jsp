@@ -6,26 +6,13 @@
 
 <head>
    <title>Users list</title>
-   <link rel="stylesheet" type="text/css" href="/style.css"/>
+   <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="wrapper">
-		<div id="header">
-			<h2>Users List</h2>
-		</div>
-	</div>
-
-    <div id="container">
-
-    		<div id="content">
-
-    			<input type="button" value="Add User"
-    				   onclick="location.href='add';"
-    				   class="add-button"
-    			/>
-
-    			<table>
+    <div class ="container">
+                <h3>Users List</h3>
+    			<table class="table table-striped">
     				<tr>
     				    <th>Id</th>
     					<th>First Name</th>
@@ -40,17 +27,20 @@
     						<td> ${user.firstName} </td>
     						<td> ${user.lastName} </td>
     						<td> ${user.email} </td>
-                            <td><input type="button" onclick="location.href='/tickets/list?userId=${user.userId}'" value="Get tickets" class="get-button"/></td>
-
+    						<td><button type="button" class="btn btn-primary"
+    						    onclick="location.href='/tickets/list?userId=${user.userId}'">Get Tickets</button>
+    						</td>
     					</tr>
 
     				</c:forEach>
 
     			</table>
+    			<div>
+    			<button type="button" class="btn btn-success" onclick="location.href='add';">Add User</button>
+                </div>
+    </div>
 
-    		</div>
-
-    	</div>
-
+	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+	<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </body>
 </html>
