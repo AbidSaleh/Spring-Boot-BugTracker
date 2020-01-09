@@ -3,44 +3,40 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-   <title>Add message</title>
+   <title>Edit Message Text</title>
    <link rel="stylesheet" type="text/css" href="/style.css"/>
+   <link rel="stylesheet" type="text/css" href="/add-style.css"/>
 </head>
 <body>
-<i cssClass = "info">Fields with (*) is required</i>
-<br>
-<br>
-<form:form modelAttribute="messageAttribute" action="editMessage" method="post">
-   <table>
-       <tr>
-            <td>
-                <form:hidden path="messageId" value="${messageAttribute.messageId}"/>
-            </td>
-       </tr>
-       <tr>
-            <td>
-                <form:hidden path="ticketId" value="${messageAttribute.ticketId}"/>
-            </td>
-       </tr>
-       <tr>
-            <td>
-                <form:hidden path="authorId" value="${messageAttribute.authorId}"/>
-            </td>
-       </tr>
-               <tr>
-                    <td>
-                        <form:hidden path="recipientId" value="${param.recipientId}"/>
-                    </td>
-               </tr>
-       <tr>
-           <td>
-               Message text(*) <form:input path="text" />
-               <form:errors path="text" cssClass="error"/>
-           </td>
-       </tr>
-   </table>
+	<div id="wrapper">
+		<div id="header">
+			<h2>Edit Message Text</h2>
+			<i>Fields with (*) is required</i>
+		</div>
+	</div>
+	<div id="container">
+	<form:form action="editMessage" modelAttribute="messageAttribute" method="POST">
+	            <form:hidden path="messageId" value="${messageAttribute.messageId}"/>
+    			<form:hidden path="ticketId" value="${param.ticketId}"/>
+    			<form:hidden path="authorId" value="${param.authorId}"/>
+    			<form:hidden path="recipientId" value="${param.recipientId}"/>
+    			<table>
+    				<tbody>
 
-   <input type="submit" value="Save"/>
-</form:form>
+    					<tr>
+    						<td><label>Message text (*):</label></td>
+    						<td><form:input path="text" /></td>
+    						<form:errors path="text" cssClass="error"/>
+    					</tr>
+    					<tr>
+    						<td><label></label></td>
+    						<td><input type="submit" value="Save" class="add-button" /></td>
+    					</tr>
+
+    				</tbody>
+    			</table>
+
+    		</form:form>
+    	</div>
 </body>
 </html>

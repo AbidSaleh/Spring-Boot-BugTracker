@@ -9,7 +9,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -54,13 +53,5 @@ public class Ticket {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private LocalDateTime updateDate;
-
-    public void addMessage(Message message) {
-        if (messages == null) {
-            messages = new ArrayList<>();
-        }
-
-        messages.add(message);
-    }
 
 }

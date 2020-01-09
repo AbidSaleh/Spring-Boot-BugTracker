@@ -36,7 +36,7 @@
                                          <c:forEach items="${users}" var="user">
                                              <option value="${user.userId}">${user.firstName}  ${user.lastName}</option>
                                          </c:forEach>
-                                         <form:errors path="holderId" cssClass="error"/>
+                                         <form:errors path="recipientId" cssClass="error"/>
                                      </select>
                                     </td>
                             </tr>
@@ -49,7 +49,7 @@
     					</tr>
     					<tr>
     						<td><label></label></td>
-    						<td><input type="submit" value="Save" class="save" /></td>
+    						<td><input type="submit" value="Save" class="add-button" /></td>
     					</tr>
 
     				</tbody>

@@ -12,14 +12,15 @@
 <body>
     <div id="wrapper">
 		<div id="header">
+		<h3>Ticket info</h3>
             <table>
             	<tr>
-            	    <th>Id</th>
-            		<th>Created</th>
-            		<th>Ticket title</th>
-            		<th>Ticket creator</th>
-            		<th>Ticket holder</th>
-            		<th>Updated</th>
+            	    <th class="headerTh">Id</th>
+            		<th class="headerTh">Created</th>
+            		<th class="headerTh">Ticket title</th>
+            		<th class="headerTh">Ticket creator</th>
+            		<th class="headerTh">Ticket holder</th>
+            		<th class="headerTh">Updated</th>
             	</tr>
                 <tr>
                     <td> ${ticket.ticketId} </td>
@@ -36,12 +37,7 @@
     <div id="container">
 
     		<div id="content">
-
-    			<input type="button" value="Add Message"
-    				   onclick="location.href='addMessageForm?ticketId=${ticket.ticketId}&authorId=${ticket.creator.userId}';"
-    				   class="add-button"
-    			/>
-
+            <h3>Messages</h3>
     			<table>
     				<tr>
     				    <th>Id</th>
@@ -61,13 +57,16 @@
     						<td> ${message.recipient.firstName} ${message.recipient.lastName} </td>
     						<td> ${message.text} </td>
     						<td> ${message.updateDate} </td>
-                            <td><input type="button" onclick="location.href='/tickets/editMessageForm?ticketId=${message.ticket.ticketId}&messageId=${message.messageId}'" value="Edit message" class="get-button"/></td>
+                            <td><input type="button" onclick="location.href='/tickets/editMessageForm?ticketId=${message.ticket.ticketId}&messageId=${message.messageId}'" value="Edit Message Text" class="get-button"/></td>
 
     					</tr>
 
     				</c:forEach>
 
     			</table>
+            <input type="button" value="Add Message"
+                				   onclick="location.href='addMessageForm?ticketId=${ticket.ticketId}&authorId=${ticket.creator.userId}';"
+                				   class="add-button"/>
 
     		</div>
 

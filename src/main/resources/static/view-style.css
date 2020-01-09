@@ -17,7 +17,7 @@ table {
 
 th {
 	border-bottom:1px solid gray;
-	background:none repeat scroll 0 0 #FFFFFF;
+	background:none repeat scroll 0 0 #4e9ccc;
 	padding:10px;
 	color: #FFFFFF;
 }
@@ -32,34 +32,33 @@ tr:nth-child(even) {background: #FFFFFF}
 tr:nth-child(odd) {background: #F2F2F2}
 
 #wrapper {width: 100%; margin-top: 0px; }
-#header {width: 70%; margin-top: 0px;}
-#header th {
-        	border-bottom:1px solid gray;
-        	padding:10px;
-        	color: #FFFFFF;
-        }
+#header {width: 70%;  margin-top: 0px;}
 
-#header td {
-        	border-top:1px solid gray;
-        	text-align:center;
-        }
-
-#header h2 {width: 100%; margin:auto; color: #FFFFFF;}
+#header h3 {color: #2C4E8D;}
 #container {width: 100%; margin:auto}
-#container h3 {color: #000;}
-#container #content {margin-top: 20px;}
+#container h3 {color: #4e9ccc;}
+#container #content {margin-top: 100px;}
+
+.headerTh {
+         	border-bottom:1px solid gray;
+         	background:none repeat scroll 0 0 #2C4E8D;
+         	padding:10px;
+         	color: #FFFFFF;
+         }
 
 .add-button {
+    color:white;
+    background: #039c4d;
+
 	border: 1px solid #666;
 	border-radius: 5px;
 	padding: 4px;
 	font-size: 12px;
 	font-weight: bold;
 	width: 120px;
-	padding: 5px 10px;
 
-	margin-bottom: 15px;
-	background: #F9F9F9;
+	margin: 5px;
+
 }
 
 .get-button {

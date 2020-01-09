@@ -99,7 +99,6 @@ public class TicketsController {
             Message message = messageConverter.getConvertedMessage(messageRequest);
 
             Ticket ticket = ticketService.getTicket(message.getTicket().getTicketId());
-            ticket.addMessage(message);
             ticket.setHolder(message.getRecipient());
 
             ticketService.addMessage(message);

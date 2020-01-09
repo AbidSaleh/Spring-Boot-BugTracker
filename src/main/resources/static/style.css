@@ -51,6 +51,9 @@ tr:nth-child(odd) {background: #F2F2F2}
 #container #content {margin-top: 20px;}
 
 .add-button {
+    color:white;
+    background: #039c4d;
+
 	border: 1px solid #666;
 	border-radius: 5px;
 	padding: 4px;
@@ -60,9 +63,8 @@ tr:nth-child(odd) {background: #F2F2F2}
 	padding: 5px 10px;
 
 	margin-bottom: 15px;
-	background: #F9F9F9;
-}
 
+}
 .get-button {
 	border: 1px solid #666;
 	border-radius: 5px;

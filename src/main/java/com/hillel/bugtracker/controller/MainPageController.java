@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/")
 public class MainPageController {
 
     @GetMapping
     public String getIndexPage() {
-        return "usersList";
+        return "redirect:/users/list";
     }
 }
