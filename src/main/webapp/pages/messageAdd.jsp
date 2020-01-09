@@ -3,54 +3,59 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-   <title>Add message</title>
+   <title>Add Message</title>
    <link rel="stylesheet" type="text/css" href="/style.css"/>
+   <link rel="stylesheet" type="text/css" href="/add-style.css"/>
 </head>
 <body>
-<i cssClass = "info">Fields with (*) is required</i>
-<br>
-<br>
-<form:form modelAttribute="messageAttribute" action="addMessage" method="post">
-   <table>
-       <tr>
-            <td>
-                <form:hidden path="ticketId" value="${param.ticketId}"/>
-            </td>
-       </tr>
-       <tr>
-            <td>
-                <form:hidden path="authorId" value="${param.authorId}"/>
-            </td>
-       </tr>
-       <c:choose>
-            <c:when test="${param.recipientId>0}">
-               <tr>
-                    <td>
-                        <form:hidden path="recipientId" value="${param.recipientId}"/>
-                    </td>
-               </tr>
-            </c:when>
-            <c:otherwise>
-                <tr>
-                     <td>
-                         Recipient: <select name="recipientId">
-                             <c:forEach items="${users}" var="user">
-                                 <option value="${user.userId}">${user.firstName}  ${user.lastName}</option>
-                             </c:forEach>
-                         </select>
-                     </td>
-                </tr>
-            </c:otherwise>
-        </c:choose>
-       <tr>
-           <td>
-               Message text(*) <form:input path="text" />
-               <form:errors path="text" cssClass="error"/>
-           </td>
-       </tr>
-   </table>
+	<div id="wrapper">
+		<div id="header">
+			<h2>Add Message</h2>
+			<i>Fields with (*) is required</i>
+		</div>
+	</div>
+	<div id="container">
+	<form:form action="addMessage" modelAttribute="messageAttribute" method="POST">
+    			<form:hidden path="ticketId" value="${param.ticketId}"/>
+    			<form:hidden path="authorId" value="${param.authorId}"/>
+    			<table>
+    				<tbody>
 
-   <input type="submit" value="Save"/>
-</form:form>
+                    <c:choose>
+                        <c:when test="${param.recipientId>0}">
+                           <tr>
+                                <td>
+                                    <form:hidden path="recipientId" value="${param.recipientId}"/>
+                                </td>
+                           </tr>
+                        </c:when>
+                        <c:otherwise>
+                            <tr>
+                                     <td><label>Recipient (*):</label></td>
+                                     <td><select name="recipientId">
+                                         <c:forEach items="${users}" var="user">
+                                             <option value="${user.userId}">${user.firstName}  ${user.lastName}</option>
+                                         </c:forEach>
+                                         <form:errors path="holderId" cssClass="error"/>
+                                     </select>
+                                    </td>
+                            </tr>
+                        </c:otherwise>
+                    </c:choose>
+    					<tr>
+    						<td><label>Message text (*):</label></td>
+    						<td><form:input path="text" /></td>
+    						<form:errors path="text" cssClass="error"/>
+    					</tr>
+    					<tr>
+    						<td><label></label></td>
+    						<td><input type="submit" value="Save" class="save" /></td>
+    					</tr>
+
+    				</tbody>
+    			</table>
+
+    		</form:form>
+    	</div>
 </body>
 </html>

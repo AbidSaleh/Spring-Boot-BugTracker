@@ -1,60 +1,63 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <html>
+
 <head>
    <title>Tickets list</title>
    <link rel="stylesheet" type="text/css" href="/style.css"/>
 </head>
-<body>
-<style>
-   DIV.table
-   {
-       display:table; width: 70%;;
-   }
-   FORM.tr, DIV.tr
-   {
-       display:table-row;
-       padding: 10px;
-       margin: 10px;
-   }
-   SPAN.td
-   {
-       display:table-cell;
-       padding: 10px;
-       margin: 10px;
-   }
-   SPAN.th
-   {
-       display:table-cell;
-       font-weight: bold;
-   }
-</style>
- <div class="table">
-     <div class="tr">
-         <span class="th">Ticket Id</span>
-         <span class="th">Created</span>
-         <span class="th">Ticket title</span>
-         <span class="th">Ticket creator</span>
-         <span class="th">Ticket holder</span>
-         <span class="th">Updated</span>
-     </div>
- <c:forEach items="${tickets}" var="ticket">
-     <form:form class="tr" modelAttribute="ticketAttribute" action="" method="post">
-         <span class="td"><c:out value="${ticket.ticketId}"/></span>
-         <span class="td"><c:out value="${ticket.createDate}"/></span>
-         <span class="td"><c:out value="${ticket.title}"/></span>
-         <span class="td"><c:out value="${ticket.creator.firstName} ${ticket.creator.lastName}"/></span>
-         <span class="td"><c:out value="${ticket.holder.firstName} ${ticket.holder.lastName}"/></span>
-         <span class="td"><c:out value="${ticket.updateDate}"/></span>
-         <span class="td">
-         <input type="button" onclick="location.href='${ticket.ticketId}';" value="View ticket"/>
-         </span>
-     </form:form>
- </c:forEach>
- </div>
- <input type="button" onclick="location.href='add?userId=${param.userId}';" value="Add new ticket"/>
 
- <div>Go to <a href="<c:url value="/users/list" />">Users list</a></div>
+<body>
+    <div id="wrapper">
+		<div id="header">
+			<h2>Tickets List</h2>
+		</div>
+	</div>
+
+    <div id="container">
+
+    		<div id="content">
+
+    			<input type="button" value="Add Ticket"
+    				   onclick="location.href='add?userId=${param.userId}';"
+    				   class="add-button"
+    			/>
+
+    			<table>
+    				<tr>
+    				    <th>Id</th>
+    					<th>Created</th>
+    					<th>Ticket title</th>
+    					<th>Ticket creator</th>
+    					<th>Ticket holder</th>
+    					<th>Updated</th>
+    					<th>Action</th>
+    				</tr>
+
+    				<c:forEach var="ticket" items="${tickets}">
+    					<tr>
+    					    <td> ${ticket.ticketId} </td>
+    						<td> ${ticket.createDate} </td>
+    						<td> ${ticket.title} </td>
+    						<td> ${ticket.creator.firstName} ${ticket.creator.lastName} </td>
+    						<td> ${ticket.holder.firstName} ${ticket.holder.lastName} </td>
+    						<td> ${ticket.updateDate} </td>
+                            <td><input type="button" onclick="location.href='${ticket.ticketId}';" value="View ticket" class="get-button"/></td>
+
+    					</tr>
+
+    				</c:forEach>
+
+    			</table>
+
+    		</div>
+
+    		<p>
+    			<a href="<c:url value="/users/list" />">Back to Users List</a>
+    		</p>
+    	</div>
+
 </body>
 </html>

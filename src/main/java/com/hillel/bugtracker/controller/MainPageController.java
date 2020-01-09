@@ -10,6 +10,6 @@ public class MainPageController {
 
     @GetMapping
     public String getIndexPage() {
-        return "index";
+        return "usersList";
     }
 }
