@@ -116,7 +116,7 @@ public class TicketsController {
         }
 
         MessageRequest messageRequest = new MessageRequest(message.getMessageId(), message.getTicket().getTicketId(),
-                message.getAuthor().getUserId(), message.getRecipient().getUserId(), message.getText());
+                message.getAuthor().getUserId(), message.getRecipient().getUserId(), message.getCreateDate(), message.getText());
         model.addAttribute("messageAttribute", messageRequest);
         return "messageEdit";
     }

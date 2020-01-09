@@ -17,6 +17,7 @@
     			<form:hidden path="ticketId" value="${param.ticketId}"/>
     			<form:hidden path="authorId" value="${param.authorId}"/>
     			<form:hidden path="recipientId" value="${param.recipientId}"/>
+    			<form:hidden path="createDate" />
 
     			<table class="table table-striped">
     				<tbody>

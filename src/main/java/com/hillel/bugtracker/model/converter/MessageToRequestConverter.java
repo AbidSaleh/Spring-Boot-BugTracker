@@ -21,6 +21,7 @@ public class MessageToRequestConverter {
         messageRequest.setAuthorId(message.getAuthor().getUserId());
         messageRequest.setRecipientId(message.getRecipient().getUserId());
         messageRequest.setText(message.getText());
+        messageRequest.setCreateDate(message.getCreateDate());
         return messageRequest;
     }
 }

@@ -13,7 +13,7 @@
 	    <form:form action="addMessage" modelAttribute="messageAttribute" method="POST">
     			<form:hidden path="ticketId" value="${param.ticketId}"/>
     			<form:hidden path="authorId" value="${param.authorId}"/>
-
+                <form:hidden path="createDate" />
     			<table class="table table-striped">
     				<tbody>
 

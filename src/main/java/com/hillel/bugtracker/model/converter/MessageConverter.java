@@ -22,6 +22,7 @@ public class MessageConverter {
     public Message getConvertedMessage(MessageRequest messageRequest) {
         Message message = new Message();
 
+        message.setCreateDate(messageRequest.getCreateDate());
         message.setTicket(ticketService.getTicket(messageRequest.getTicketId()));
         message.setAuthor(userService.getUser(messageRequest.getAuthorId()));
         message.setRecipient(userService.getUser(messageRequest.getRecipientId()));
