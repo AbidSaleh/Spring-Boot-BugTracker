@@ -26,11 +26,13 @@
             	</tr>
                 <tr>
                     <th> ${ticket.ticketId} </th>
-                    <th> ${ticket.createDate} </th>
+                    <th> Date: ${ticket.createDate.toLocalDate()}<br>
+                    Time: ${ticket.createDate.toLocalTime().withNano(0)} </th>
                     <th> ${ticket.title} </th>
                     <th> ${ticket.creator.firstName} ${ticket.creator.lastName} </th>
                     <th> ${ticket.holder.firstName} ${ticket.holder.lastName} </th>
-                    <th> ${ticket.updateDate} </th>
+                    <th> Date: ${ticket.updateDate.toLocalDate()}<br>
+                    Time: ${ticket.updateDate.toLocalTime().withNano(0)}  </th>
                     <th>
                         <a class="btn btn-secondary" href="<c:url value="/tickets/list?userId=${ticket.creator.userId}" />">Back to Tickets List</a>
                     </th>
@@ -53,11 +55,13 @@
     		<c:forEach var="message" items="${ticket.getMessages()}">
     		<tr>
     		    <td> ${message.messageId} </td>
-    		    <td> ${message.createDate} </td>
+    		    <td> Date: ${message.createDate.toLocalDate()}<br>
+    		    Time: ${message.createDate.toLocalTime().withNano(0)} </td>
     		    <td> ${message.author.firstName} ${message.author.lastName} </td>
     		    <td> ${message.recipient.firstName} ${message.recipient.lastName} </td>
     		    <td> ${message.text} </td>
-    		    <td> ${message.updateDate} </td>
+    		    <td> Date: ${message.updateDate.toLocalDate()}<br>
+    		    Time: ${message.updateDate.toLocalTime().withNano(0)}  </td>
                 <td><button type="button" class="btn btn-primary"
                      onclick="location.href='/tickets/editMessageForm?ticketId=${message.ticket.ticketId}&messageId=${message.messageId}'">
                      Edit message</button>

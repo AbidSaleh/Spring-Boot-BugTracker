@@ -80,6 +80,7 @@ public class TicketsController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("ticket", ticket);
         modelAndView.setViewName("ticketView");
+        ticket.getCreateDate().toLocalDate();
         return modelAndView;
     }
 

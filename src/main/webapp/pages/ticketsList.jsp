@@ -31,11 +31,13 @@
     				<c:forEach var="ticket" items="${tickets}">
     					<tr>
     					    <td> ${ticket.ticketId} </td>
-    						<td> ${ticket.createDate} </td>
+    						<td> Date: ${ticket.createDate.toLocalDate()}<br>
+    						Time: ${ticket.createDate.toLocalTime().withNano(0)} </td>
     						<td> ${ticket.title} </td>
     						<td> ${ticket.creator.firstName} ${ticket.creator.lastName} </td>
     						<td> ${ticket.holder.firstName} ${ticket.holder.lastName} </td>
-    						<td> ${ticket.updateDate} </td>
+    						<td> Date: ${ticket.updateDate.toLocalDate()}<br>
+    						Time: ${ticket.updateDate.toLocalTime().withNano(0)}</td>
                             <td><button type="button" class="btn btn-primary"
                                  onclick="location.href='${ticket.ticketId}';">View Ticket</button>
                             </td>
