@@ -13,8 +13,7 @@
 
     <div class ="container">
 		<h3>Ticket info</h3>
-            <table class="table">
-            <thead class="thead-dark">
+            <table class="table table-striped table-dark">
             	<tr>
             	    <th>Id</th>
             		<th>Created</th>
@@ -37,10 +36,10 @@
                         <a class="btn btn-secondary" href="<c:url value="/tickets/list?userId=${ticket.creator.userId}" />">Back to Tickets List</a>
                     </th>
     			</tr>
-            </thead>
+
             </table>
         <h3>Messages</h3>
-    	<table class="table table-striped">
+    	<table class="table table-bordered table-striped">
 
     	    <tr>
     			<th>Id</th>

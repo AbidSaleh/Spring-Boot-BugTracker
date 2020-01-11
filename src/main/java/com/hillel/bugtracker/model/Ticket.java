@@ -27,7 +27,7 @@ public class Ticket {
     private String title;
 
     @OneToMany(mappedBy = "ticket", cascade = {
-            CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+            CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Message> messages;

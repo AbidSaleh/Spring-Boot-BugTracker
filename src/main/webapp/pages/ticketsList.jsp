@@ -52,7 +52,7 @@
                 </div>
                 <br>
                 <div>
-                    <a class="btn btn-secondary" href="<c:url value="/tickets/list?userId=${ticket.creator.userId}" />">Back to Tickets List</a>
+                    <a class="btn btn-secondary" href="<c:url value="/users/list" />">Back to Users List</a>
                 </div>
     </div>
 
