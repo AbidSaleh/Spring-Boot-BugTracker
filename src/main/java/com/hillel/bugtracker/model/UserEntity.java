@@ -5,37 +5,47 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class User {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
+    @EqualsAndHashCode.Include
     private int userId;
 
     @NotBlank(message = "first name is required")
     @Column(name = "first_Name")
     @NonNull
-    @EqualsAndHashCode.Exclude
     private String firstName;
 
     @NotBlank(message = "last name is required")
     @Column(name = "last_Name")
     @NonNull
-    @EqualsAndHashCode.Exclude
     private String lastName;
 
 
     @Email(message = "invalid email format")
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @NotBlank(message = "email is required")
     @NonNull
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
+    @EqualsAndHashCode.Include
     private String email;
+
+    @ManyToMany
+    private Set<RoleEntity> roles;
+
+    @NonNull
+    private String password;
+
+    @Transient
+    private String passwordConfirm;
+
 
 }

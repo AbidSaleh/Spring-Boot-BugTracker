@@ -1,15 +1,15 @@
 package com.hillel.bugtracker.repository;
 
-import com.hillel.bugtracker.model.Ticket;
+import com.hillel.bugtracker.model.TicketEntity;
 
 import java.util.List;
 
 public interface TicketRepository {
-    List<Ticket> getTicketList();
+    List<TicketEntity> getTicketList();
 
-    Ticket getTicketById(int id);
+    TicketEntity getTicketById(int id);
 
-    void save(Ticket ticket);
+    void save(TicketEntity ticketEntity);
 
     void delete(int id);
 }

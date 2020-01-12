@@ -1,6 +1,6 @@
 package com.hillel.bugtracker.repository;
 
-import com.hillel.bugtracker.model.Ticket;
+import com.hillel.bugtracker.model.TicketEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -22,33 +22,33 @@ public class TicketRepositoryImpl implements TicketRepository {
     }
 
     @Override
-    public List<Ticket> getTicketList() {
-        return getCurrentSession().createQuery("from Ticket", Ticket.class).list();
+    public List<TicketEntity> getTicketList() {
+        return getCurrentSession().createQuery("from TicketEntity", TicketEntity.class).list();
     }
 
     @Override
-    public Ticket getTicketById(int id) {
+    public TicketEntity getTicketById(int id) {
 
-        Query<Ticket> query = sessionFactory.getCurrentSession().createQuery(
-                "select t from Ticket t " +
+        Query<TicketEntity> query = sessionFactory.getCurrentSession().createQuery(
+                "select t from TicketEntity t " +
                         "JOIN FETCH t.messages " +
                         "where t.ticketId = :id",
-                Ticket.class);
+                TicketEntity.class);
         query.setParameter("id", id);
-        Ticket ticket = query.getSingleResult();
+        TicketEntity ticketEntity = query.getSingleResult();
 
-        return ticket;
+        return ticketEntity;
     }
 
     @Override
-    public void save(Ticket ticket) {
-        getCurrentSession().saveOrUpdate(ticket);
+    public void save(TicketEntity ticketEntity) {
+        getCurrentSession().saveOrUpdate(ticketEntity);
     }
 
     @Override
     public void delete(int id) {
-        Ticket ticket = getTicketById(id);
-        getCurrentSession().delete(ticket);
+        TicketEntity ticketEntity = getTicketById(id);
+        getCurrentSession().delete(ticketEntity);
     }
 
 }

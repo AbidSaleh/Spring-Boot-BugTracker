@@ -1,6 +1,6 @@
 package com.hillel.bugtracker.model.converter;
 
-import com.hillel.bugtracker.model.Ticket;
+import com.hillel.bugtracker.model.TicketEntity;
 import com.hillel.bugtracker.model.requestModel.TicketRequest;
 import com.hillel.bugtracker.service.TicketService;
 import com.hillel.bugtracker.service.UserService;
@@ -16,12 +16,12 @@ public class TicketConverter {
     @Autowired
     private TicketService ticketService;
 
-    public Ticket getConvertedTicket(TicketRequest ticketRequest) {
-        Ticket ticket = new Ticket();
-        ticket.setTitle(ticketRequest.getTitle());
-        ticket.setCreator(userService.getUser(ticketRequest.getCreatorId()));
-        ticket.setHolder(userService.getUser(ticketRequest.getHolderId()));
-        ticketService.addTicket(ticket);
-        return ticket;
+    public TicketEntity getConvertedTicket(TicketRequest ticketRequest) {
+        TicketEntity ticketEntity = new TicketEntity();
+        ticketEntity.setTitle(ticketRequest.getTitle());
+        ticketEntity.setCreator(userService.getUser(ticketRequest.getCreatorId()));
+        ticketEntity.setHolder(userService.getUser(ticketRequest.getHolderId()));
+        ticketService.addTicket(ticketEntity);
+        return ticketEntity;
     }
 }

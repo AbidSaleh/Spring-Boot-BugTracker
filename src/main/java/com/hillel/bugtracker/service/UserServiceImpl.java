@@ -1,11 +1,15 @@
 package com.hillel.bugtracker.service;
 
-import com.hillel.bugtracker.model.User;
+import com.hillel.bugtracker.model.UserEntity;
+import com.hillel.bugtracker.repository.RoleRepository;
 import com.hillel.bugtracker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -15,30 +19,44 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
-    public void addUser(User user) {
-        userRepository.save(user);
+    public void addUser(UserEntity userEntity) {
+        userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
+        userEntity.setRoles(new HashSet<>(Arrays.asList(roleRepository.findByName("ROLE_USER"))));
+
+        userRepository.save(userEntity);
     }
 
     @Transactional
     @Override
-    public List<User> getUsers() {
+    public List<UserEntity> getUsers() {
         return userRepository.getUserList();
     }
 
     @Transactional
     @Override
-    public User getUser(int id) {
+    public UserEntity getUser(int id) {
         return userRepository.getUserById(id);
     }
 
     @Override
-    public void updateUser(User user) {
-        userRepository.save(user);
+    public void updateUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 
     @Override
     public void deleteUser(int id) {
         userRepository.delete(id);
+    }
+
+    @Override
+    public UserEntity findByUsername(String email) {
+        return userRepository.findByEmail(email);
     }
 }

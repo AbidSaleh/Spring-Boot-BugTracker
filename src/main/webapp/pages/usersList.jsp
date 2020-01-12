@@ -10,6 +10,7 @@
 </head>
 
 <body>
+<jsp:include page="navbar.jsp"/>
     <div class ="container">
                 <h3>Users List</h3>
     			<table class="table table-striped">
@@ -28,8 +29,13 @@
     						<td> ${user.lastName} </td>
     						<td> ${user.email} </td>
     						<td><button type="button" class="btn btn-primary"
-    						    onclick="location.href='/tickets/list?userId=${user.userId}'">Get Tickets</button>
-    						</td>
+    						    onclick="location.href='/tickets/list?userId=${user.userId}'">
+    						    Get Tickets</button>
+
+    	                        <%--<button type="button" class="btn btn-warning"
+                                 onclick="location.href='/users/edit?userId=${user.userId}'">
+                                 Edit User</button>--%>
+                            </td>
     					</tr>
 
     				</c:forEach>

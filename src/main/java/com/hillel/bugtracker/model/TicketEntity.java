@@ -3,7 +3,6 @@ package com.hillel.bugtracker.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,43 +14,34 @@ import java.util.List;
 @Table(name = "tickets")
 @Data
 @NoArgsConstructor
-public class Ticket {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class TicketEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ticket_id")
+    @EqualsAndHashCode.Include
     private int ticketId;
 
     @Column(name = "title")
-    @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Include
     private String title;
 
-    @OneToMany(mappedBy = "ticket", cascade = {
-            CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<Message> messages;
+    @OneToMany(mappedBy = "ticket")
+    private List<MessageEntity> messages;
 
     @ManyToOne
     @JoinColumn(name = "creator_id")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private User creator;
+    private UserEntity creator;
 
     @ManyToOne
     @JoinColumn(name = "holder_id")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private User holder;
+    private UserEntity holder;
 
     @CreationTimestamp
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     private LocalDateTime createDate;
 
     @UpdateTimestamp
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
     private LocalDateTime updateDate;
 
 }

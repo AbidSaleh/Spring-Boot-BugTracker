@@ -1,9 +1,10 @@
 package com.hillel.bugtracker.controller;
 
-import com.hillel.bugtracker.model.User;
+import com.hillel.bugtracker.model.UserEntity;
 import com.hillel.bugtracker.service.TicketService;
 import com.hillel.bugtracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/users")
+@PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_BOSS')")
 public class UsersController {
 
     @Autowired
@@ -28,12 +30,12 @@ public class UsersController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/add")
     public String addUserForm(Model model) {
-        model.addAttribute("userAttribute", new User());
+        model.addAttribute("userAttribute", new UserEntity());
         return "userAdd";
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/addUser")
-    public String addUser(@ModelAttribute("userAttribute") @Validated User userEntity, BindingResult bindingResult) {
+    public String addUser(@ModelAttribute("userAttribute") @Validated UserEntity userEntity, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "userAdd";
         } else {
@@ -44,7 +46,7 @@ public class UsersController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public ModelAndView getUsersList() {
-        List<User> usersList = userService.getUsers();
+        List<UserEntity> usersList = userService.getUsers();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("users", usersList);
         modelAndView.setViewName("usersList");
@@ -58,8 +60,8 @@ public class UsersController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/editUser")
-    public String updateUser(@ModelAttribute("userAttribute") @Validated User user) {
-        userService.addUser(user);
+    public String updateUser(@ModelAttribute("userAttribute") @Validated UserEntity userEntity) {
+        userService.addUser(userEntity);
         return "redirect:/users/list";
     }
 

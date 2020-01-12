@@ -7,7 +7,7 @@
    <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
+<jsp:include page="navbar.jsp"/>
 	<div class="container">
 	    <h2>Edit Message</h2>
 	    <strong>Fields with (*) is required</strong>

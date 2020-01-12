@@ -1,25 +1,25 @@
 package com.hillel.bugtracker.service;
 
-import com.hillel.bugtracker.model.Message;
-import com.hillel.bugtracker.model.Ticket;
+import com.hillel.bugtracker.model.MessageEntity;
+import com.hillel.bugtracker.model.TicketEntity;
 
 import java.util.List;
 
 public interface TicketService {
 
-    void addTicket(Ticket ticket);
+    void addTicket(TicketEntity ticketEntity);
 
-    List<Ticket> getTickets();
+    List<TicketEntity> getTickets();
 
-    Ticket getTicket(int id);
+    TicketEntity getTicket(int id);
 
-    void updateTicket(Ticket ticket);
+    void updateTicket(TicketEntity ticketEntity);
 
     void deleteTicket(int id);
 
-    void addMessage(Message message);
+    void addMessage(MessageEntity messageEntity);
 
-    void updateMessage(Message message);
+    void updateMessage(MessageEntity messageEntity);
 
     void deleteMessage(int id);
 

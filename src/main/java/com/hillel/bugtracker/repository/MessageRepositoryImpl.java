@@ -1,7 +1,7 @@
 package com.hillel.bugtracker.repository;
 
 
-import com.hillel.bugtracker.model.Message;
+import com.hillel.bugtracker.model.MessageEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +20,18 @@ public class MessageRepositoryImpl implements MessageRepository {
     }
 
     @Override
-    public void saveMessage(Message message) {
-        getCurrentSession().saveOrUpdate(message);
+    public void saveMessage(MessageEntity messageEntity) {
+        getCurrentSession().saveOrUpdate(messageEntity);
     }
 
     @Override
-    public void updateMessage(Message message) {
+    public void updateMessage(MessageEntity messageEntity) {
         getCurrentSession().getTransaction().commit();
     }
 
     @Override
     public void deleteMessage(int id) {
-        Message message = getCurrentSession().get(Message.class, id);
-        getCurrentSession().delete(message);
+        MessageEntity messageEntity = getCurrentSession().get(MessageEntity.class, id);
+        getCurrentSession().delete(messageEntity);
     }
 }

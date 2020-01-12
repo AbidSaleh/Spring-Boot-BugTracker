@@ -10,9 +10,7 @@
 </head>
 
 <body>
-
-
-
+<jsp:include page="navbar.jsp"/>
 
     <div class="container">
     <h3>Tickets List</h3>
@@ -48,7 +46,7 @@
     			</table>
 
     			<div>
-                    <button type="button" class="btn btn-success" onclick="location.href='add?userId=${param.userId}';">Add Ticket</button>
+                    <button type="button" class="btn btn-success" onclick="location.href='add?userId=${loggedInId}';">Add Ticket</button>
                 </div>
                 <br>
                 <div>

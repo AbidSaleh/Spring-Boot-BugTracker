@@ -1,8 +1,8 @@
 package com.hillel.bugtracker.controller;
 
-import com.hillel.bugtracker.model.Message;
-import com.hillel.bugtracker.model.Ticket;
-import com.hillel.bugtracker.model.User;
+import com.hillel.bugtracker.model.MessageEntity;
+import com.hillel.bugtracker.model.TicketEntity;
+import com.hillel.bugtracker.model.UserEntity;
 import com.hillel.bugtracker.model.converter.MessageConverter;
 import com.hillel.bugtracker.model.converter.TicketConverter;
 import com.hillel.bugtracker.model.requestModel.MessageRequest;
@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,13 +40,22 @@ public class TicketsController {
     private MessageConverter messageConverter;
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
-    public ModelAndView getTicketsList(@RequestParam("userId") int userId) {
+    public ModelAndView getTicketsList(@RequestParam("userId") String userId,
+                                       HttpServletRequest request) {
+        if (userId == "") {
+            String username = request.getUserPrincipal().getName();
+            int usernameId = userService.findByUsername(username).getUserId();
+            userId = String.valueOf(usernameId);
+        }
+        int id = Integer.parseInt(userId);
 
-        List<Ticket> ticketList = ticketService.getTickets().stream().
-                filter(ticket -> ticket.getCreator().getUserId() == userId)
+
+        List<TicketEntity> ticketEntityList = ticketService.getTickets().stream().
+                filter(ticket -> ticket.getCreator().getUserId() == id)
                 .collect(Collectors.toList());
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tickets", ticketList);
+        modelAndView.addObject("tickets", ticketEntityList);
+        modelAndView.addObject("loggedInId", userId);
         modelAndView.setViewName("ticketsList");
         return modelAndView;
     }
@@ -55,8 +65,8 @@ public class TicketsController {
         TicketRequest ticketRequest = new TicketRequest();
         ticketRequest.setCreatorId(userId);
         model.addAttribute("ticketAttribute", ticketRequest);
-        List<User> users = userService.getUsers();
-        model.addAttribute("users", users);
+        List<UserEntity> userEntities = userService.getUsers();
+        model.addAttribute("users", userEntities);
         return "ticketAdd";
     }
 
@@ -64,31 +74,31 @@ public class TicketsController {
     public String addTicket(Model model, @ModelAttribute("ticketAttribute")
     @Validated TicketRequest ticketRequest, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            List<User> users = userService.getUsers();
-            model.addAttribute("users", users);
+            List<UserEntity> userEntities = userService.getUsers();
+            model.addAttribute("users", userEntities);
             return "ticketAdd";
         } else {
-            Ticket ticket = ticketConverter.getConvertedTicket(ticketRequest);
-            return "redirect:/tickets/addMessageForm" + "?ticketId=" + ticket.getTicketId() + "&authorId=" + ticket.getCreator().getUserId() + "&recipientId=" + ticket.getHolder().getUserId();
+            TicketEntity ticketEntity = ticketConverter.getConvertedTicket(ticketRequest);
+            return "redirect:/tickets/addMessageForm" + "?ticketId=" + ticketEntity.getTicketId() + "&authorId=" + ticketEntity.getCreator().getUserId() + "&recipientId=" + ticketEntity.getHolder().getUserId();
         }
     }
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/{ticketId}")
     public ModelAndView showTicket(@PathVariable String ticketId) {
-        Ticket ticket = ticketService.getTicket(Integer.parseInt(ticketId));
+        TicketEntity ticketEntity = ticketService.getTicket(Integer.parseInt(ticketId));
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("ticket", ticket);
+        modelAndView.addObject("ticket", ticketEntity);
         modelAndView.setViewName("ticketView");
-        ticket.getCreateDate().toLocalDate();
+        ticketEntity.getCreateDate().toLocalDate();
         return modelAndView;
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/addMessageForm")
     public String addMessageForm(Model model) {
         model.addAttribute("messageAttribute", new MessageRequest());
-        List<User> users = userService.getUsers();
-        model.addAttribute("users", users);
+        List<UserEntity> userEntities = userService.getUsers();
+        model.addAttribute("users", userEntities);
         return "messageAdd";
     }
 
@@ -97,27 +107,27 @@ public class TicketsController {
         if (bindingResult.hasErrors()) {
             return "messageAdd";
         } else {
-            Message message = messageConverter.getConvertedMessage(messageRequest);
+            MessageEntity messageEntity = messageConverter.getConvertedMessage(messageRequest);
 
-            Ticket ticket = ticketService.getTicket(message.getTicket().getTicketId());
-            ticket.setHolder(message.getRecipient());
+            TicketEntity ticketEntity = ticketService.getTicket(messageEntity.getTicket().getTicketId());
+            ticketEntity.setHolder(messageEntity.getRecipient());
 
-            ticketService.addMessage(message);
-            return "redirect:/tickets/" + message.getTicket().getTicketId();
+            ticketService.addMessage(messageEntity);
+            return "redirect:/tickets/" + messageEntity.getTicket().getTicketId();
         }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/editMessageForm")
     public String editMessageForm(Model model, @RequestParam("ticketId") int ticketId, @RequestParam("messageId") int messageId) {
-        Message message = null;
-        for (Message message1 : ticketService.getTicket(ticketId).getMessages()) {
-            if (message1.getMessageId() == messageId) {
-                message = message1;
+        MessageEntity messageEntity = null;
+        for (MessageEntity messageEntity1 : ticketService.getTicket(ticketId).getMessages()) {
+            if (messageEntity1.getMessageId() == messageId) {
+                messageEntity = messageEntity1;
             }
         }
 
-        MessageRequest messageRequest = new MessageRequest(message.getMessageId(), message.getTicket().getTicketId(),
-                message.getAuthor().getUserId(), message.getRecipient().getUserId(), message.getCreateDate(), message.getText());
+        MessageRequest messageRequest = new MessageRequest(messageEntity.getMessageId(), messageEntity.getTicket().getTicketId(),
+                messageEntity.getAuthor().getUserId(), messageEntity.getRecipient().getUserId(), messageEntity.getCreateDate(), messageEntity.getText());
         model.addAttribute("messageAttribute", messageRequest);
         return "messageEdit";
     }
@@ -127,10 +137,10 @@ public class TicketsController {
         if (bindingResult.hasErrors()) {
             return "redirect:/tickets/editMessageForm?ticketId=" + messageRequest.getTicketId() + "&messageId=" + messageRequest.getMessageId();
         } else {
-            Message message = messageConverter.getConvertedMessage(messageRequest);
-            message.setMessageId(messageRequest.getMessageId());
-            ticketService.addMessage(message);
-            return "redirect:/tickets/" + message.getTicket().getTicketId();
+            MessageEntity messageEntity = messageConverter.getConvertedMessage(messageRequest);
+            messageEntity.setMessageId(messageRequest.getMessageId());
+            ticketService.addMessage(messageEntity);
+            return "redirect:/tickets/" + messageEntity.getTicket().getTicketId();
         }
     }
 

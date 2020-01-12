@@ -1,6 +1,9 @@
 package com.hillel.bugtracker.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,30 +16,24 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message {
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class MessageEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")
+    @EqualsAndHashCode.Include
     private int messageId;
 
-    @ManyToOne(cascade = {
-            CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH
-    })
+    @ManyToOne
     @JoinColumn(name = "ticket_id")
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private Ticket ticket;
+    private TicketEntity ticket;
 
     @ManyToOne
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private User author;
+    private UserEntity author;
 
     @ManyToOne
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private User recipient;
+    private UserEntity recipient;
 
 
     @NotBlank(message = "must be not blank")

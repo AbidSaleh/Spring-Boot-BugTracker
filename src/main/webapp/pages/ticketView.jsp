@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+<jsp:include page="navbar.jsp"/>
     <div class ="container">
 		<h3>Ticket info</h3>
             <table class="table table-striped table-dark">

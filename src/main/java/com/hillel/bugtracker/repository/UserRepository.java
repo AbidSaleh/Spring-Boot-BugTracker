@@ -1,16 +1,18 @@
 package com.hillel.bugtracker.repository;
 
-import com.hillel.bugtracker.model.User;
+import com.hillel.bugtracker.model.UserEntity;
 
 import java.util.List;
 
 public interface UserRepository {
-    List<User> getUserList();
+    List<UserEntity> getUserList();
 
-    User getUserById(int id);
+    UserEntity getUserById(int id);
 
-    void save(User user);
+    void save(UserEntity userEntity);
 
     void delete(int id);
+
+    UserEntity findByEmail(String username);
 
 }

@@ -10,10 +10,10 @@
 <jsp:include page="navbar.jsp"/>
 	<div class="container">
 
-	    <h2>Add user</h2>
+	    <h2>Edit user</h2>
 	    <strong>Fields with (*) is required</strong>
 
-	    <form:form action="addUser" modelAttribute="userAttribute" method="POST">
+	    <form:form action="editUser" modelAttribute="userAttribute" method="POST">
     			<form:hidden path="userId" />
     			<table class="table table-striped">
     				<tbody>
@@ -34,6 +34,17 @@
     						<td><form:input path="email" /></td>
     						<td><form:errors path="email" cssClass="text-danger"/></td>
     					</tr>
+
+                        <tr>
+                            <td><label>Role (*):</label></td>
+                            <td><select name="holderId">
+                                    <c:forEach items="${users}" var="user">
+                                        <option value="${user.userId}">${user.firstName} ${user.lastName}</option>
+                                    </c:forEach>
+                                    <form:errors path="holderId" cssClass="text-danger"/>
+                                </select>
+                            </td>
+                        </tr>
 
     				</tbody>
     			</table>

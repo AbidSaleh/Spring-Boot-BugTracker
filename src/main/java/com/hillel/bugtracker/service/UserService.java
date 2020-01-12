@@ -1,19 +1,21 @@
 package com.hillel.bugtracker.service;
 
 
-import com.hillel.bugtracker.model.User;
+import com.hillel.bugtracker.model.UserEntity;
 
 import java.util.List;
 
 public interface UserService {
 
-    void addUser(User user);
+    void addUser(UserEntity userEntity);
 
-    List<User> getUsers();
+    List<UserEntity> getUsers();
 
-    User getUser(int id);
+    UserEntity getUser(int id);
 
-    void updateUser(User user);
+    void updateUser(UserEntity userEntity);
 
     void deleteUser(int id);
+
+    UserEntity findByUsername(String email);
 }
