@@ -3,7 +3,6 @@ package com.hillel.bugtracker.repository;
 import com.hillel.bugtracker.model.TicketEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,13 +28,15 @@ public class TicketRepositoryImpl implements TicketRepository {
     @Override
     public TicketEntity getTicketById(int id) {
 
-        Query<TicketEntity> query = sessionFactory.getCurrentSession().createQuery(
+        /*Query<TicketEntity> query = sessionFactory.getCurrentSession().createQuery(
                 "select t from TicketEntity t " +
                         "JOIN FETCH t.messages " +
                         "where t.ticketId = :id",
                 TicketEntity.class);
         query.setParameter("id", id);
-        TicketEntity ticketEntity = query.getSingleResult();
+        TicketEntity ticketEntity = query.getSingleResult();*/
+
+        TicketEntity ticketEntity = getCurrentSession().get(TicketEntity.class, id);
 
         return ticketEntity;
     }

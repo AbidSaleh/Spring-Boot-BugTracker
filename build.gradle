@@ -47,6 +47,8 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-security")
 
+    compile group: 'org.springframework.security', name: 'spring-security-taglibs'
+
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

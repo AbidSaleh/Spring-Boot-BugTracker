@@ -5,16 +5,14 @@
 <html>
 
 <head>
-   <title>Bugtracker</title>
+   <title>Users list</title>
    <link href="/webjars/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class ="container">
-            <div>
-            <a class="btn btn-secondary" href="<c:url value="/users/list" />">Back to Users List</a>
-            </div>
-    </div>
+<jsp:include page="navbar.jsp"/>
+        <p><h5>Welcome, ${pageContext.request.userPrincipal.name}</h5>
+
 
 	<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
 	<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>

@@ -10,6 +10,6 @@ public class MainPageController {
 
     @GetMapping
     public String getIndexPage() {
-        return "redirect:/users/list";
+        return "index";
     }
 }

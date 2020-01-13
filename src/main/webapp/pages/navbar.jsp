@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 
@@ -16,14 +17,20 @@
             <li class="nav-item active">
               <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item active">
+            <sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_BOSS')">
+                    <a class="nav-link" href="/users/list">Users</a>
+              </sec:authorize>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="/tickets/list?userId=">Tickets</a>
             </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-              <span class="navbar-text mr-sm-2">Login: ${pageContext.request.userPrincipal.name}</span>
-              <a class="btn btn-outline-danger my-2 my-sm-0" href="<c:url value="/logout" />">Logout</a>
-            </form>
+            <c:url value="/logout?${_csrf.parameterName}=${_csrf.token}" var="logoutUrl"/>
+            <form:form class="form-inline my-2 my-lg-0" action="${logoutUrl}" method="POST" enctype="multipart/form-data">
+                <span class="navbar-text mr-sm-2">${pageContext.request.userPrincipal.name}</span>
+            <button type="Logout" class="btn btn-outline-danger">Log out</button>
+            </form:form>
         </div>
       </nav>
 
