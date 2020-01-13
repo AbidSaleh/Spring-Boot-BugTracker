@@ -22,7 +22,7 @@
             <div class="form-group ">
                 <input name="username" type="text" class="form-control" placeholder="Username"
                    autofocus="true"/>
-                git <input name="password" type="password" class="form-control" placeholder="Password"/>
+                <input name="password" type="password" class="form-control" placeholder="Password"/>
             </div>
 
             <div class="form-group">
