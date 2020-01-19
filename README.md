@@ -1,4 +1,4 @@
-# BugTracker
+# BugTracker CRM
 Bug tracking system using 
 spring framework
 spring boot
