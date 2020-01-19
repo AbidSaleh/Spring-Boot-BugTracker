@@ -29,13 +29,13 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
     @Override
     public List<TicketEntity> getTickets() {
-        return ticketRepository.getTicketList();
+        return ticketRepository.findAll();
     }
 
     @Transactional
     @Override
     public TicketEntity getTicket(int id) {
-        return ticketRepository.getTicketById(id);
+        return ticketRepository.findById(id).get();
     }
 
     @Override
@@ -46,25 +46,25 @@ public class TicketServiceImpl implements TicketService {
     @Transactional
     @Override
     public void deleteTicket(int id) {
-        ticketRepository.delete(id);
+        ticketRepository.deleteById(id);
     }
 
     @Override
     public void addMessage(MessageEntity messageEntity) {
-        messageRepository.saveMessage(messageEntity);
+        messageRepository.save(messageEntity);
         updateTicket(messageEntity.getTicket());
     }
 
     @Override
     public void updateMessage(MessageEntity messageEntity) {
-        messageRepository.saveMessage(messageEntity);
+        messageRepository.save(messageEntity);
         updateTicket(messageEntity.getTicket());
     }
 
     @Transactional
     @Override
     public void deleteMessage(int id) {
-        messageRepository.deleteMessage(id);
+        messageRepository.deleteById(id);
     }
 
     @Override

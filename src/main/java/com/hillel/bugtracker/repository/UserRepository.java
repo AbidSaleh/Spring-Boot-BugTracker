@@ -1,18 +1,27 @@
 package com.hillel.bugtracker.repository;
 
 import com.hillel.bugtracker.model.UserEntity;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface UserRepository {
-    List<UserEntity> getUserList();
+public interface UserRepository extends CrudRepository<UserEntity, Integer> {
+    @Override
+    <S extends UserEntity> S save(S entity);
 
-    UserEntity getUserById(int id);
+    @Override
+    Optional<UserEntity> findById(Integer integer);
 
-    void save(UserEntity userEntity);
+    @Override
+    List<UserEntity> findAll();
 
-    void delete(int id);
+    @Override
+    void deleteById(Integer integer);
 
-    UserEntity findByEmail(String username);
+    @Query("from UserEntity where email = :email")
+    UserEntity findByEmail(@Param("email") String email);
 
 }

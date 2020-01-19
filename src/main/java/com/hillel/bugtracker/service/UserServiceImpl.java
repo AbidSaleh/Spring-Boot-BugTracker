@@ -36,13 +36,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public List<UserEntity> getUsers() {
-        return userRepository.getUserList();
+        return userRepository.findAll();
     }
 
     @Transactional
     @Override
     public UserEntity getUser(int id) {
-        return userRepository.getUserById(id);
+        return userRepository.findById(id).get();
     }
 
     @Override
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(int id) {
-        userRepository.delete(id);
+        userRepository.deleteById(id);
     }
 
     @Override

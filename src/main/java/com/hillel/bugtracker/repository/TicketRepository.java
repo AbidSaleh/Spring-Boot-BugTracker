@@ -1,15 +1,22 @@
 package com.hillel.bugtracker.repository;
 
 import com.hillel.bugtracker.model.TicketEntity;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface TicketRepository {
-    List<TicketEntity> getTicketList();
+public interface TicketRepository extends CrudRepository<TicketEntity, Integer> {
+    @Override
+    <S extends TicketEntity> S save(S entity);
 
-    TicketEntity getTicketById(int id);
+    @Override
+    Optional<TicketEntity> findById(Integer integer);
 
-    void save(TicketEntity ticketEntity);
+    @Override
+    List<TicketEntity> findAll();
 
-    void delete(int id);
+    @Override
+    void deleteById(Integer integer);
+
 }

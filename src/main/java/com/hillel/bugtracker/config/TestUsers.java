@@ -69,7 +69,7 @@ public class TestUsers implements InitializingBean {
         messageEntity.setRecipient(usualEmployee);
         messageEntity.setTicket(ticketEntity);
 
-        messageRepository.saveMessage(messageEntity);
+        messageRepository.save(messageEntity);
 
     }
 }

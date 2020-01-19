@@ -27,7 +27,7 @@ public class TicketEntity {
     @EqualsAndHashCode.Include
     private String title;
 
-    @OneToMany(mappedBy = "ticket", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "ticket")
     private List<MessageEntity> messages;
 
     @ManyToOne

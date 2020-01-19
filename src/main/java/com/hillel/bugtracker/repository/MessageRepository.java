@@ -1,13 +1,13 @@
 package com.hillel.bugtracker.repository;
 
 import com.hillel.bugtracker.model.MessageEntity;
+import org.springframework.data.repository.CrudRepository;
 
-public interface MessageRepository {
+public interface MessageRepository extends CrudRepository<MessageEntity, Integer> {
 
-    public void saveMessage(MessageEntity messageEntity);
+    @Override
+    <S extends MessageEntity> S save(S entity);
 
-    public void updateMessage(MessageEntity messageEntity);
-
-    public void deleteMessage(int id);
-
+    @Override
+    void deleteById(Integer integer);
 }
