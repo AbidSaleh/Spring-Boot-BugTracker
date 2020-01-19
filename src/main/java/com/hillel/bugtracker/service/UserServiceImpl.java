@@ -1,6 +1,5 @@
 package com.hillel.bugtracker.service;
 
-import com.hillel.bugtracker.model.TicketEntity;
 import com.hillel.bugtracker.model.UserEntity;
 import com.hillel.bugtracker.repository.RoleRepository;
 import com.hillel.bugtracker.repository.UserRepository;
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 @Service

@@ -1,16 +1,18 @@
 package com.hillel.bugtracker.controller;
 
-import com.hillel.bugtracker.model.MessageEntity;
 import com.hillel.bugtracker.model.TicketEntity;
 import com.hillel.bugtracker.model.UserEntity;
 import com.hillel.bugtracker.model.converter.MessageConverter;
 import com.hillel.bugtracker.model.converter.TicketConverter;
-import com.hillel.bugtracker.model.requestModel.MessageRequest;
 import com.hillel.bugtracker.model.requestModel.TicketRequest;
 import com.hillel.bugtracker.service.TicketService;
 import com.hillel.bugtracker.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,12 +20,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/tickets")
+@Slf4j
 public class TicketsController {
 
     @Autowired
@@ -39,12 +40,11 @@ public class TicketsController {
     private MessageConverter messageConverter;
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
-    public ModelAndView getTicketsList(@RequestParam("userId") String userId,
-                                       HttpServletRequest request) {
+    public ModelAndView getTicketsList(@RequestParam("userId") String userId) {
         if (userId == "") {
-            String username = request.getUserPrincipal().getName();
-            int usernameId = userService.findByUsername(username).getUserId();
-            userId = String.valueOf(usernameId);
+            String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+            int userNameId = userService.findByUsername(userName).getUserId();
+            userId = String.valueOf(userNameId);
         }
         int id = Integer.parseInt(userId);
 
@@ -83,12 +83,27 @@ public class TicketsController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{ticketId}")
     public ModelAndView showTicket(@PathVariable String ticketId) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        int userId = userService.findByUsername(userName).getUserId();
+
         TicketEntity ticketEntity = ticketService.getTicket(Integer.parseInt(ticketId));
+
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("ticket", ticketEntity);
-        modelAndView.setViewName("ticketView");
-        ticketEntity.getCreateDate().toLocalDate();
+
+        if (ticketEntity.getCreator().getUserId() == userId
+                || ticketEntity.getHolder().getUserId() == userId
+                || authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+
+            modelAndView.addObject("ticket", ticketEntity);
+            modelAndView.setViewName("ticketView");
+
+        } else {
+            modelAndView.setStatus(HttpStatus.FORBIDDEN);
+        }
         return modelAndView;
+
     }
 
 
