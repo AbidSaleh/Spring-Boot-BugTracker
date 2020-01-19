@@ -23,4 +23,6 @@ public interface TicketService {
 
     void deleteMessage(int id);
 
+    List<TicketEntity> findUsersTickets(int userId);
+
 }

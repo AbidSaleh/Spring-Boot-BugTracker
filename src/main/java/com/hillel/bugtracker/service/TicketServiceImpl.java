@@ -2,13 +2,16 @@ package com.hillel.bugtracker.service;
 
 import com.hillel.bugtracker.model.MessageEntity;
 import com.hillel.bugtracker.model.TicketEntity;
+import com.hillel.bugtracker.model.UserEntity;
 import com.hillel.bugtracker.repository.MessageRepository;
 import com.hillel.bugtracker.repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -64,5 +67,17 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public void deleteMessage(int id) {
         messageRepository.deleteMessage(id);
+    }
+
+    @Override
+    public List<TicketEntity> findUsersTickets(int userId) {
+
+        List<TicketEntity> ticketEntityList = new ArrayList<>();
+        for (TicketEntity ticket : getTickets()) {
+            if (ticket.getCreator().getUserId() == userId || ticket.getHolder().getUserId() == userId) {
+                ticketEntityList.add(ticket);
+            }
+        }
+        return ticketEntityList;
     }
 }

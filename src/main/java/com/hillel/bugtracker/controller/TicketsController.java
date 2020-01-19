@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/tickets")
-@Slf4j
 public class TicketsController {
 
     @Autowired
@@ -49,12 +48,10 @@ public class TicketsController {
         }
         int id = Integer.parseInt(userId);
 
+        List<TicketEntity> userTickets = ticketService.findUsersTickets(id);
 
-        List<TicketEntity> ticketEntityList = ticketService.getTickets().stream().
-                filter(ticket -> ticket.getCreator().getUserId() == id)
-                .collect(Collectors.toList());
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tickets", ticketEntityList);
+        modelAndView.addObject("tickets", userTickets);
         modelAndView.addObject("loggedInId", userId);
         modelAndView.setViewName("ticketsList");
         return modelAndView;
@@ -92,56 +89,6 @@ public class TicketsController {
         modelAndView.setViewName("ticketView");
         ticketEntity.getCreateDate().toLocalDate();
         return modelAndView;
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/addMessageForm")
-    public String addMessageForm(Model model) {
-        model.addAttribute("messageAttribute", new MessageRequest());
-        List<UserEntity> userEntities = userService.getUsers();
-        model.addAttribute("users", userEntities);
-        return "messageAdd";
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/addMessage")
-    public String addMessage(@ModelAttribute("messageAttribute") @Validated MessageRequest messageRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "messageAdd";
-        } else {
-            MessageEntity messageEntity = messageConverter.getConvertedMessage(messageRequest);
-
-            TicketEntity ticketEntity = ticketService.getTicket(messageEntity.getTicket().getTicketId());
-            ticketEntity.setHolder(messageEntity.getRecipient());
-
-            ticketService.addMessage(messageEntity);
-            return "redirect:/tickets/" + messageEntity.getTicket().getTicketId();
-        }
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "/editMessageForm")
-    public String editMessageForm(Model model, @RequestParam("ticketId") int ticketId, @RequestParam("messageId") int messageId) {
-        MessageEntity messageEntity = null;
-        for (MessageEntity messageEntity1 : ticketService.getTicket(ticketId).getMessages()) {
-            if (messageEntity1.getMessageId() == messageId) {
-                messageEntity = messageEntity1;
-            }
-        }
-
-        MessageRequest messageRequest = new MessageRequest(messageEntity.getMessageId(), messageEntity.getTicket().getTicketId(),
-                messageEntity.getAuthor().getUserId(), messageEntity.getRecipient().getUserId(), messageEntity.getCreateDate(), messageEntity.getText());
-        model.addAttribute("messageAttribute", messageRequest);
-        return "messageEdit";
-    }
-
-    @RequestMapping(method = RequestMethod.POST, value = "/editMessage")
-    public String editMessage(@ModelAttribute("messageAttribute") @Validated MessageRequest messageRequest, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "redirect:/tickets/editMessageForm?ticketId=" + messageRequest.getTicketId() + "&messageId=" + messageRequest.getMessageId();
-        } else {
-            MessageEntity messageEntity = messageConverter.getConvertedMessage(messageRequest);
-            messageEntity.setMessageId(messageRequest.getMessageId());
-            ticketService.addMessage(messageEntity);
-            return "redirect:/tickets/" + messageEntity.getTicket().getTicketId();
-        }
     }
 
 
